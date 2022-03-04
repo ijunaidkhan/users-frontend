@@ -1,0 +1,205 @@
+
+<div class="content" role="main">
+
+  <!-- Highlight Card -->
+  <div class="card highlight-card card-small">
+    <svg id="rocket" xmlns="http://www.w3.org/2000/svg" width="101.678" height="101.678" viewBox="0 0 101.678 101.678">
+      <title>Rocket Ship</title>
+      <g id="Group_83" data-name="Group 83" transform="translate(-141 -696)">
+        <circle id="Ellipse_8" data-name="Ellipse 8" cx="50.839" cy="50.839" r="50.839" transform="translate(141 696)" fill="#dd0031"/>
+        <g id="Group_47" data-name="Group 47" transform="translate(165.185 720.185)">
+          <path id="Path_33" data-name="Path 33" d="M3.4,42.615a3.084,3.084,0,0,0,3.553,3.553,21.419,21.419,0,0,0,12.215-6.107L9.511,30.4A21.419,21.419,0,0,0,3.4,42.615Z" transform="translate(0.371 3.363)" fill="#fff"/>
+          <path id="Path_34" data-name="Path 34" d="M53.3,3.221A3.09,3.09,0,0,0,50.081,0,48.227,48.227,0,0,0,18.322,13.437c-6-1.666-14.991-1.221-18.322,7.218A33.892,33.892,0,0,1,9.439,25.1l-.333.666a3.013,3.013,0,0,0,.555,3.553L23.985,43.641a2.9,2.9,0,0,0,3.553.555l.666-.333A33.892,33.892,0,0,1,32.647,53.3c8.55-3.664,8.884-12.326,7.218-18.322A48.227,48.227,0,0,0,53.3,3.221ZM34.424,9.772a6.439,6.439,0,1,1,9.106,9.106,6.368,6.368,0,0,1-9.106,0A6.467,6.467,0,0,1,34.424,9.772Z" transform="translate(0 0.005)" fill="#fff"/>
+        </g>
+      </g>
+    </svg>
+
+    <span> app is running!</span>
+
+
+
+  </div>
+
+
+  <div class="justify-center pt-16 mx-auto ">
+  <div>
+      <p class="pb-3 text-lg font-normal text-center text-white">BUILDING TEAM</p>
+      <h1 class="w-5/6 pb-6 mx-auto text-3xl font-extrabold text-center text-white xl:text-4xl sm:w-4/6 lg:w-full">The <span style="color:greenyellow">Talented People</span> Behind the Scenes of the Organization</h1>
+  </div>
+  </div>
+
+  <div class="card-container">
+
+    <ng-container *ngFor="let user of (users$ | async)">
+      <div
+      class="relative block p-4 m-4 overflow-hidden bg-gray-900 border border-gray-100 rounded-lg card-size"
+      href=""
+    >
+
+    <button type="button" class="dropdown-btn" mat-icon-button [matMenuTriggerFor]="menu"
+    aria-label="Example icon-button with a menu" aria-expanded="true" aria-haspopup="true">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu" class="bg-gray-600" xPosition='before'>
+      <button type="button" (click)="openUserForm(user)" class="text-white" mat-menu-item >
+        <mat-icon class="material-icons color_white">edit</mat-icon>
+        <span>Edit</span>
+      </button>
+      <button type="button" (click)="deleteUser(user)" class="text-white" mat-menu-item>
+        <mat-icon class="material-icons color_white">delete</mat-icon>
+        <span>Delete</span>
+      </button>
+    </mat-menu>
+
+
+      <span
+        class="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600"
+      ></span>
+
+      <div class="justify-between sm:flex">
+        <div>
+          <h5 class="text-xl font-bold text-gray-100">
+            {{user.name}}
+          </h5>
+          <p class="mt-1 text-xs font-medium text-gray-400">By John Doe</p>
+        </div>
+
+        <div class="flex items-center flex-shrink-0 hidden ml-3 sm:block">
+          <img
+            class="object-cover w-16 h-16 rounded-lg shadow-sm"
+            src="https://www.hyperui.dev/photos/man-5.jpeg"
+            alt=""
+          />
+        </div>
+      </div>
+
+      <div class="mt-4 sm:pr-8">
+        <p class="text-sm text-gray-200">
+          {{user.bio}}
+        </p>
+      </div>
+
+      <dl class="flex mt-6">
+        <div class="flex flex-col-reverse">
+          <dd class="text-xs text-gray-300">{{user.education}}</dd>
+          <dt class="text-sm font-medium text-gray-400">Education</dt>
+
+        </div>
+
+        <div class="flex flex-col-reverse ml-3 sm:ml-6">
+          <dd class="text-xs text-gray-300">{{user.techStack}}</dd>
+          <dt class="text-sm font-medium text-gray-400">Tech Stack</dt>
+
+        </div>
+      </dl>
+      <dl class="flex mt-6">
+        <div class="flex flex-col-reverse">
+          <dd class="text-xs text-gray-300">{{user.phoneno}}</dd>
+          <dt class="text-sm font-medium text-gray-400">Phone</dt>
+        </div>
+
+        <div class="flex flex-col-reverse ml-3 sm:ml-6">
+          <dd class="text-xs text-gray-300">{{user.email}}</dd>
+          <dt class="text-sm font-medium text-gray-400">Email</dt>
+        </div>
+      </dl>
+
+
+        </div>
+    </ng-container>
+
+
+  </div>
+
+
+</div>
+
+
+<ng-template #editUserDialog>
+  <div class="bg-gray-800 sign-up-model" >
+    <div class="flex justify-end">
+      <button class="btn-close"  (click)="close()">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd"
+            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+            clip-rule="evenodd" />
+        </svg>
+      </button>
+    </div>
+    <!-- <img style="max-height: 90px;" class="object-scale-down logo rounded-xl" [src]="(creator$ | async)?.profileImageURL"> -->
+    <h1 class=""><span>Updat</span>e User</h1>
+    <form [formGroup]="editUser" class="sign-up-form ">
+
+      <label for="name" class="font-normal">Full Name</label>
+      <input appTrim type="text" formControlName="name">
+      <p class="error-msg error" *ngIf="editUser.controls.name.touched && editUser.controls.name.errors?.required">please enter full name</p>
+      <p class="error-msg error" *ngIf="editUser.controls.name.touched && editUser.controls.name.errors?.minlength">full name length should be greater than or equal to {{editUser.controls.name.errors?.minlength.requiredLength}} </p>
+
+
+        <label for="email" class="font-normal">Email</label>
+        <input type="email" formControlName="email">
+        <p class="error-msg error" *ngIf="editUser.controls.email.touched && editUser.controls.email.errors?.required">please enter email address</p>
+        <p class="error-msg error" *ngIf="editUser.controls.email.touched && editUser.controls.email.errors?.email">please enter valid email address</p>
+
+        <label for="education" class="font-normal">Education</label>
+        <select formControlName="education"
+              class="block text-lg font-light text-gray-400 rounded-lg bg-primary-gray-100 focus:outline-none w-44 form-select" style="height: 3rem !important;">
+              <option [ngValue]="null" disabled>Experience in years</option>
+              <option *ngFor="let edu of education" [ngValue]="edu">
+                {{edu}}
+              </option>
+            </select>
+        <p class="error-msg error" *ngIf="editUser.controls.education.touched && editUser.controls.education.errors?.required">please enter education details</p>
+
+        <label for="education" class="font-normal">Experience</label>
+        <!-- <select formControlName="experience"
+              class="block h-16 px-1 text-lg font-light text-gray-400 rounded-lg bg-primary-gray-100 focus:outline-none w-44 form-select">
+              <option [ngValue]="null" disabled>Experience in years</option>
+              <option *ngFor="let exp of experiences" [ngValue]="exp">
+                {{exp}}
+              </option>
+            </select> -->
+            <mat-slider formControlName="experience" class="text-white" min="1" max="5" step="1" thumbLabel tickInterval="1" ></mat-slider>
+            <p class="error-msg error" *ngIf="editUser.controls.experience.touched && editUser.controls.experience.errors?.required">please enter experience details</p>
+
+
+        <label for="phone" class="font-normal">Phone No</label>
+        <input type="text" formControlName="phone">
+        <p class="error-msg error" *ngIf="editUser.controls.phone.touched && editUser.controls.phone.errors?.required">please enter phone no</p>
+
+
+        <label for="techstack" class="font-normal">Tech Stack</label>
+        <select formControlName="tech"
+        class="block px-1 text-lg font-light text-gray-400 rounded-lg bg-primary-gray-100 focus:outline-none w-44 form-select" style="height: 3rem !important;">
+        <option [ngValue]="null" disabled>Experience in years</option>
+        <option *ngFor="let tech of techStack" [ngValue]="tech">
+          {{tech}}
+        </option>
+      </select>
+        <p class="error-msg error" *ngIf="editUser.controls.tech.touched && editUser.controls.tech.errors?.required">please enter your tech</p>
+
+
+        <label class="floating-label" for="bio">Bio</label>
+        <textarea appTrim type="text" formControlName="bio" maxlength="600"></textarea>
+        <span class="icon description-hide-icon"></span>
+        <p class="error-msg error" *ngIf="editUser.controls.bio.touched && editUser.controls.bio.errors?.required">please enter description</p>
+        <p class="error-msg error" *ngIf="editUser.controls.bio.touched && editUser.controls.bio.errors?.minlength">description should be greater than or equal to {{editUser.controls.bio.errors?.minlength.requiredLength}} character </p>
+      <br>
+
+
+
+      <button [disabled]="!editUser.valid" class="primary-btn signup" (click)="updateUser()" >
+        Update
+      </button>
+
+    </form>
+  </div>
+</ng-template>
+
+
+
+
+
+
+
+

@@ -3,16 +3,48 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
+import { UsersComponent } from './users/users.component';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { Interceptor } from './interceptor/interceptor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CreateUserComponent } from './ui-components/create-user/create-user.component';
+import { MatDialogModule } from '@angular/material/dialog'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {MatIconModule} from '@angular/material/icon';
+import {MatMenuModule} from '@angular/material/menu';
+import { MatSliderModule } from '@angular/material/slider';
+import { EditUserComponent } from './ui-components/edit-user/edit-user.component';
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    UsersComponent,
+    HeaderComponent,
+    FooterComponent,
+    CreateUserComponent,
+    EditUserComponent
   ],
   imports: [
+
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
+    MatIconModule,
+    MatMenuModule,
+    MatSliderModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: Interceptor,
+      multi: true
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,297 @@
+:host {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 14px;
+  color: #333;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+.card-size {
+  height: 358px;
+  width: 281px;
+}
+
+.content {
+  display: flex;
+  margin: 82px auto 32px;
+  padding: 0 16px;
+  max-width: 1280px;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+svg.material-icons {
+  height: 24px;
+  width: auto;
+}
+
+svg.material-icons:not(:last-child) {
+  margin-right: 8px;
+}
+
+.card svg.material-icons path {
+  fill: #888;
+}
+
+.card-container {
+  @apply flex flex-wrap w-full h-auto justify-center;
+}
+
+.card {
+  all: unset;
+  border-radius: 4px;
+  border: 1px solid #eee;
+  background-color: #fafafa;
+  height: 40px;
+  width: 200px;
+  margin: 0 8px 16px;
+  padding: 16px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s ease-in-out;
+  line-height: 24px;
+}
+
+
+
+.card.card-small {
+  height: 16px;
+  width: 168px;
+}
+
+
+
+
+
+
+
+.card.highlight-card {
+  background-color: #2C3E50;
+  color: white;
+  font-weight: 600;
+  border: none;
+  width: auto;
+  min-width: 30%;
+  position: relative;
+}
+
+.card.card.highlight-card span {
+  margin-left: 60px;
+}
+
+svg#rocket {
+  width: 80px;
+  position: absolute;
+  left: -10px;
+  top: -24px;
+}
+
+svg#rocket-smoke {
+  height: calc(100vh - 95px);
+  position: absolute;
+  top: 10px;
+  right: 180px;
+  z-index: -10;
+}
+
+a,
+a:visited,
+a:hover {
+  color: #1976d2;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #125699;
+}
+
+.terminal {
+  position: relative;
+  width: 80%;
+  max-width: 600px;
+  border-radius: 6px;
+  padding-top: 45px;
+  margin-top: 8px;
+  overflow: hidden;
+  background-color: rgb(15, 15, 16);
+}
+
+.terminal::before {
+  content: "\2022 \2022 \2022";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 4px;
+  background: rgb(58, 58, 58);
+  color: #c2c3c4;
+  width: 100%;
+  font-size: 2rem;
+  line-height: 0;
+  padding: 14px 0;
+  text-indent: 4px;
+}
+
+.terminal pre {
+  font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+  color: white;
+  padding: 0 1rem 1rem;
+  margin: 0;
+}
+
+.circle-link {
+  height: 40px;
+  width: 40px;
+  border-radius: 40px;
+  margin: 8px;
+  background-color: white;
+  border: 1px solid #eeeeee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  transition: 1s ease-out;
+}
+
+.circle-link:hover {
+  transform: translateY(-0.25rem);
+  box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Responsive Styles */
+@media screen and (max-width: 767px) {
+
+
+  .card:not(.highlight-card) {
+    height: 16px;
+    margin: 8px 0;
+  }
+
+  .card.highlight-card span {
+    margin-left: 72px;
+  }
+
+  svg#rocket-smoke {
+    right: 120px;
+    transform: rotate(-5deg);
+  }
+}
+
+@media screen and (max-width: 575px) {
+  svg#rocket-smoke {
+    display: none;
+    visibility: hidden;
+  }
+}
+
+.dropdown-btn {
+  @apply flex justify-end w-full text-white;
+  position: relative;
+  top: -5px;
+  left: 8px;
+}
+
+.material-icons.color_white { color: #FFFFFF; }
+
+
+
+::ng-deep .create-user-form-overlay .mat-dialog-container {
+  @apply bg-gray-800 text-gray-900 rounded-3xl;
+  // height: auto;
+  // min-height: 637px;
+  max-width: 637px !important;
+}
+
+.sign-up-model {
+  @apply flex bg-gray-800  flex-col items-center px-0  sm:px-20;
+
+  .btn-close {
+   @apply absolute top-0 right-0 bg-white rounded-full opacity-50 m-3.5 hover:opacity-70;
+   padding: 1px;
+   svg {
+     color: #132356;
+   }
+ }
+
+ .logo {
+   @apply object-scale-down mt-6 sm:mt-6 md:mt-2;
+   // width: 410px;
+   height: 90px;
+ }
+
+ h1 {
+   @apply capitalize my-5 text-3xl text-white;
+   font-weight: 400;
+   span {
+     padding-bottom: 4px;
+     border-bottom: 2px solid #75F16D;
+   }
+ }
+
+ form {
+   @apply flex flex-col w-full;
+
+   p{
+     @apply text-red-400
+   }
+
+   label {
+     @apply text-white pt-4 text-lg;
+   }
+
+   input {
+     @apply px-7;
+   }
+
+   .signup {
+     @apply w-72 h-16 my-10 sm:my-3 self-center;
+   }
+
+ }
+
+}
+
+
+textarea,
+input {
+  @apply h-11 bg-gray-400 rounded-lg text-lg focus:outline-none px-4 ;
+}
+
+.primary-btn {
+  @apply px-5 py-1 rounded-full ;
+  background: transparent linear-gradient(109deg, #59C8D1 0%, #75F16D 100%) 0% 0% no-repeat padding-box;
+}
+
+.custom-scrollbar-css {
+  height: 500px;
+}
+/* Custom Scrollbar using CSS */
+.custom-scrollbar-css {
+  overflow-y: scroll;
+}
+/* scrollbar width */
+.custom-scrollbar-css::-webkit-scrollbar {
+  width: 7px;
+}
+/* scrollbar track */
+.custom-scrollbar-css::-webkit-scrollbar-track {
+  background: #132356;
+}
+/* scrollbar handle */
+.custom-scrollbar-css::-webkit-scrollbar-thumb {
+  border-radius: 1rem;
+  background-color: #34ABC5;
+  background-image: linear-gradient(to top, #3ABFF3 0%, #75F16D 100%);
+}
+
+.mat-slider {
+  background: white;
+  border-radius: 8px;
+}
+
