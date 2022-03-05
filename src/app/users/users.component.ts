@@ -21,6 +21,10 @@ export class UsersComponent implements OnInit {
   public users$ = this.userService.users$;
 
   public editUser!: FormGroup
+  public createUser!: FormGroup
+
+  name: any;
+  bio: any;
   // public createUser!: FormGroup
   destroy$ = new Subject();
 
@@ -36,17 +40,15 @@ export class UsersComponent implements OnInit {
   constructor(private userService: UserService,
     public dialog: MatDialog,
     private formBuilder: FormBuilder) {
-
-
-    this.editUser = this.formBuilder.group({
-      name: new FormControl([null], [Validators.required, Validators.minLength(3)]),
-      email: new FormControl([null], [Validators.required, Validators.email]),
-      education: new FormControl([null], [Validators.required]),
-      experience: new FormControl([null], [Validators.required]),
-      phone: new FormControl([null], Validators.required),
-      tech: new FormControl([null], Validators.required),
-      bio: new FormControl([null], [Validators.required])
-    })
+       this.createUser = this.formBuilder.group({
+        name: new FormControl('', [Validators.required, Validators.minLength(3)]),
+        email: new FormControl('', [Validators.required, Validators.email]),
+        education: new FormControl('', [Validators.required]),
+        // experience: new FormControl('', [Validators.required]),
+        phone: new FormControl('', Validators.required),
+        tech: new FormControl('', Validators.required),
+        bio: new FormControl('', [Validators.required])
+      })
   }
 
 
@@ -54,11 +56,20 @@ export class UsersComponent implements OnInit {
   ngOnInit(): void {
     this.getUsers()
   }
+
+  openDialog() {
+    const dialogRef = this.dialog.open(CreateUserComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+
   openUserForm(user: User){
     this.dialog.open(this.editUserDialog, {
       disableClose: false,
       panelClass: ['create-user-form-overlay', 'action-dialog'],
-      data: {user}
+      data: {User}
     });
   }
 
@@ -73,9 +84,38 @@ export class UsersComponent implements OnInit {
     // })
   }
 
+  submit() {
+    console.log(this.createUser.value);
+  }
+
+  createuser() {
+    debugger
+    const payload: User = {
+      name: this.createUser.value.name,
+      email: this.createUser.value.email,
+      education: this.createUser.value.education,
+      experience: this.createUser.value.experience,
+      phoneno: this.createUser.value.phone,
+      techStack: this.createUser.value.tech,
+      bio: this.createUser.value.bio
+    }
+    debugger
+    this.userService.createUser(payload).pipe(takeUntil(this.destroy$)).subscribe((res: ApiResponse<any>)=> {
+      if(!res.hasErrors()) {
+        console.log('User created')
+
+      }
+      else {
+        console.log('something went wrong')
+      }
+    })
+
+
+  }
+
 
   deleteUser(user: User) {
-    // debugger
+    debugger
     this.userService.deleteUser(user.id).subscribe((res:ApiResponse<any>)=>{
       if(!res.hasErrors()) {
         this.getUsers();
@@ -83,9 +123,9 @@ export class UsersComponent implements OnInit {
     })
   }
 
-  updateUser() {
+  updateUser(user: User) {
     debugger
-    this.userService.editUser(this.editUser.value.id, this.editUser.value).pipe(takeUntil(this.destroy$)).subscribe((res: ApiResponse<any>)=> {
+    this.userService.editUser(user.id, this.editUser.value).pipe(takeUntil(this.destroy$)).subscribe((res: ApiResponse<any>)=> {
       debugger
       if(!res.hasErrors()) {
         console.log('User created')

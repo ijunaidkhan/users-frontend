@@ -5,7 +5,7 @@ export class User {
   bio?:	string;
   email?:	string;
   address?:	string;
-  experience?:	string;
+  experience?:	number;
   techStack?:	string;
   education?:	string;
   phoneno?:	number;

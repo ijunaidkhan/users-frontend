@@ -20,6 +20,147 @@
 
   </div>
 
+  <!-- component -->
+<section class="w-full text-gray-900 py-36 bg-center bg-cover bg-no-repeat"
+style="background:url('https://images.unsplash.com/photo-1623479322729-28b25c16b011?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=1280')">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-4 flex items-center justify-center">
+    <div class="lg:w-3/6 lg:pr-0 pr-0 flex justify-center">
+      <div
+      class="relative block p-4 m-4 overflow-hidden bg-gray-900 border border-gray-100 rounded-lg card-size"
+      href="">
+      <span
+        class="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600"
+      ></span>
+
+      <div class="justify-between sm:flex">
+        <div>
+          <h5 *ngIf="this.createUser.controls.name.value" class="text-xl font-bold text-gray-100">
+            {{this.createUser.controls.name.value}}
+          </h5>
+          <h5 *ngIf="!this.createUser.controls.name.value" class="text-xl font-bold text-gray-100">
+           John Doe
+          </h5>
+
+          <!-- <p class="mt-1 text-xs font-medium text-gray-400">By John Doe</p> -->
+        </div>
+
+        <div class="flex items-center flex-shrink-0 hidden ml-3 sm:block">
+          <img
+            class="object-cover w-16 h-16 rounded-lg shadow-sm"
+            src="https://www.hyperui.dev/photos/man-5.jpeg"
+            alt=""
+          />
+        </div>
+      </div>
+
+      <div class="mt-4 sm:pr-8">
+        <p *ngIf="this.createUser.controls.bio.value" class="text-sm text-gray-200">
+        {{this.createUser.controls.bio.value}}
+        </p>
+        <p *ngIf="!this.createUser.controls.bio.value" class="text-sm text-gray-200">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque varius dictum luctus. Suspendisse quis blandit leo. Nunc felis dolor, dapibus quis tempus in, vehicula et dolor.
+        </p>
+      </div>
+
+      <dl class="flex mt-6">
+        <div class="flex flex-col-reverse">
+          <dd *ngIf="this.createUser.controls.education.value" class="text-xs text-gray-300">{{this.createUser.controls.education.value}}</dd>
+          <dd *ngIf="!this.createUser.controls.education.value" class="text-xs text-gray-300">ex. Masters</dd>
+          <dt class="text-sm font-medium text-gray-400">Education</dt>
+
+        </div>
+
+        <div class="flex flex-col-reverse ml-3 sm:ml-6">
+          <dd *ngIf="this.createUser.controls.tech.value" class="text-xs text-gray-300">{{this.createUser.controls.tech.value }}</dd>
+          <dd *ngIf="!this.createUser.controls.tech.value" class="text-xs text-gray-300">ex. Angular</dd>
+          <dt class="text-sm font-medium text-gray-400">Tech Stack</dt>
+
+        </div>
+      </dl>
+      <dl class="flex mt-6">
+        <div class="flex flex-col-reverse">
+          <dd *ngIf="this.createUser.controls.phone.value" class="text-xs text-gray-300">{{this.createUser.controls.phone.value}}</dd>
+          <dd *ngIf="!this.createUser.controls.phone.value" class="text-xs text-gray-300">+92 3358976</dd>
+          <dt class="text-sm font-medium text-gray-400">Phone</dt>
+        </div>
+
+        <div class="flex flex-col-reverse ml-3 sm:ml-6">
+
+          <dd *ngIf="this.createUser.controls.email.value" class="text-xs text-gray-300">{{this.createUser.controls.email.value}}</dd>
+          <dd *ngIf="!this.createUser.controls.email.value" class="text-xs text-gray-300">johndoe@email.com</dd>
+          <dt class="text-sm font-medium text-gray-400">Email</dt>
+        </div>
+      </dl>
+
+
+        </div>
+    </div>
+
+
+    <div class="lg:w-3/6 xl:w-2/5 md:w-full bg-gray-900 p-8 flex flex-col lg:ml-auto w-full mt-10 lg:mt-0 rounded-md">
+      <form [formGroup]="createUser" (ngSubmit)="submit()" >
+        <div class="relative mb-4">
+          <label for="full-name" class="leading-7 text-sm text-gray-600">Name</label>
+          <input type="text" formControlName="name" class="w-full bg-white rounded-md border border-gray-300 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-200 text-sm outline-none text-gray-900 py-1 px-3 leading-8 transition-colors duration-150 ease-in-out">
+          <p class="error-msg error"   *ngIf="createUser.controls.name.touched && createUser.controls.name.errors?.required">please enter full name</p>
+          <p class="error-msg error"  *ngIf="createUser.controls.name.touched && createUser.controls.name.errors?.minlength">full name length should be greater than or equal to {{createUser.controls.name.errors?.minlength.requiredLength}} </p>
+        </div>
+
+      <div class="relative mb-4">
+        <label for="email" class="leading-7 text-sm text-gray-600">Bio</label>
+        <textarea id="message" formControlName="bio"  rows="4" class="w-full bg-white rounded-md border border-gray-300 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-200 text-sm outline-none text-gray-900 py-1 px-3 leading-8 transition-colors duration-150 ease-in-out"> </textarea>
+        <p class="error-msg error" *ngIf="createUser.controls.bio.touched && createUser.controls.bio.errors?.required">please enter description</p>
+      <p class="error-msg error" *ngIf="createUser.controls.bio.touched && createUser.controls.bio.errors?.minlength">description should be greater than or equal to {{createUser.controls.bio.errors?.minlength.requiredLength}} character </p>
+      </div>
+
+      <div class="flex inline justify-between">
+        <div class="relative mb-4">
+          <label for="education" class="leading-7 text-sm text-gray-600">Education</label>
+          <select formControlName="education"
+          class="block text-lg font-light text-gray-900 bg-gray-400 rounded-lg bg-primary-gray-100 focus:outline-none w-44 form-select" style="height: 3rem !important;">
+          <option [ngValue]="null" disabled>Experience in years</option>
+          <option *ngFor="let edu of education" [ngValue]="edu">
+            {{edu}}
+          </option>
+        </select>
+        <p class="error-msg error" *ngIf="createUser.controls.education.touched && createUser.controls.education.errors?.required">please enter education details</p>
+      </div>
+
+      <div class="relative mb-4">
+          <label for="tech" class="leading-7 text-sm text-gray-600">Tech Stack</label>
+          <select formControlName="tech"
+          class="block px-1 text-lg font-light text-gray-900 bg-gray-400 rounded-lg bg-primary-gray-100 focus:outline-none w-44 form-select" style="height: 3rem !important;">
+          <option [ngValue]="null" disabled>Experience in years</option>
+          <option *ngFor="let tech of techStack" [ngValue]="tech">
+            {{tech}}
+          </option>
+        </select>
+        <p class="error-msg error" *ngIf="createUser.controls.tech.touched && createUser.controls.tech.errors?.required">please enter your tech</p>
+      </div>
+      </div>
+
+
+      <div class="relative mb-4">
+        <label for="number" class="leading-7 text-sm text-gray-600">Phone</label>
+        <input type="text" formControlName="phone" class="w-full bg-white rounded-md border border-gray-300 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-200 text-sm outline-none text-gray-900 py-1 px-3 leading-8 transition-colors duration-150 ease-in-out">
+        <p class="error-msg error" *ngIf="createUser.controls.phone.touched && createUser.controls.phone.errors?.required">please enter phone no</p>
+      </div>
+
+      <div class="relative mb-4">
+          <label for="email" class="leading-7 text-sm text-gray-600">Email</label>
+          <input type="email" formControlName="email" class="w-full bg-white rounded-md border border-gray-300 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-200 text-sm outline-none text-gray-900 py-1 px-3 leading-8 transition-colors duration-150 ease-in-out">
+          <p class="error-msg error" *ngIf="createUser.controls.email.touched && createUser.controls.email.errors?.required">please enter email address</p>
+          <p class="error-msg error" *ngIf="createUser.controls.email.touched && createUser.controls.email.errors?.email">please enter valid email address</p>
+      </div>
+
+
+      <button [disabled]="!createUser.valid" (click)="createuser()" class="text-white bg-green-500 rounded-md border-0 py-2 px-8 focus:outline-none hover:bg-green-600 text-lg">
+        Submit</button>
+      </form>
+    </div>
+</div>
+</section>
+
 
   <div class="justify-center pt-16 mx-auto ">
   <div>
@@ -49,70 +190,11 @@
         <mat-icon class="material-icons color_white">delete</mat-icon>
         <span>Delete</span>
       </button>
+      <button mat-button (click)="openDialog()">Open dialog
+        <mat-icon class="material-icons color_white">delete</mat-icon>
+        <span>Test</span>
+      </button>
     </mat-menu>
-
-
-      <span
-        class="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600"
-      ></span>
-
-      <div class="justify-between sm:flex">
-        <div>
-          <h5 class="text-xl font-bold text-gray-100">
-            {{user.name}}
-          </h5>
-          <p class="mt-1 text-xs font-medium text-gray-400">By John Doe</p>
-        </div>
-
-        <div class="flex items-center flex-shrink-0 hidden ml-3 sm:block">
-          <img
-            class="object-cover w-16 h-16 rounded-lg shadow-sm"
-            src="https://www.hyperui.dev/photos/man-5.jpeg"
-            alt=""
-          />
-        </div>
-      </div>
-
-      <div class="mt-4 sm:pr-8">
-        <p class="text-sm text-gray-200">
-          {{user.bio}}
-        </p>
-      </div>
-
-      <dl class="flex mt-6">
-        <div class="flex flex-col-reverse">
-          <dd class="text-xs text-gray-300">{{user.education}}</dd>
-          <dt class="text-sm font-medium text-gray-400">Education</dt>
-
-        </div>
-
-        <div class="flex flex-col-reverse ml-3 sm:ml-6">
-          <dd class="text-xs text-gray-300">{{user.techStack}}</dd>
-          <dt class="text-sm font-medium text-gray-400">Tech Stack</dt>
-
-        </div>
-      </dl>
-      <dl class="flex mt-6">
-        <div class="flex flex-col-reverse">
-          <dd class="text-xs text-gray-300">{{user.phoneno}}</dd>
-          <dt class="text-sm font-medium text-gray-400">Phone</dt>
-        </div>
-
-        <div class="flex flex-col-reverse ml-3 sm:ml-6">
-          <dd class="text-xs text-gray-300">{{user.email}}</dd>
-          <dt class="text-sm font-medium text-gray-400">Email</dt>
-        </div>
-      </dl>
-
-
-        </div>
-    </ng-container>
-
-
-  </div>
-
-
-</div>
 
 
 <ng-template #editUserDialog>
@@ -188,13 +270,84 @@
 
 
 
-      <button [disabled]="!editUser.valid" class="primary-btn signup" (click)="updateUser()" >
+      <button [disabled]="!editUser.valid" class="primary-btn signup" (click)="updateUser(user)" >
         Update
       </button>
 
     </form>
   </div>
 </ng-template>
+
+
+      <span
+        class="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600"
+      ></span>
+
+      <div class="justify-between sm:flex">
+        <div>
+          <h5 class="text-xl font-bold text-gray-100">
+            {{user.name}}
+          </h5>
+          <p class="mt-1 text-xs font-medium text-gray-400">By John Doe</p>
+        </div>
+
+        <div class="flex items-center flex-shrink-0 hidden ml-3 sm:block">
+          <img
+            class="object-cover w-16 h-16 rounded-lg shadow-sm"
+            src="https://www.hyperui.dev/photos/man-5.jpeg"
+            alt=""
+          />
+        </div>
+      </div>
+
+      <div class="mt-4 sm:pr-8">
+        <p class="text-sm text-gray-200">
+          {{user.bio}}
+        </p>
+      </div>
+
+      <dl class="flex mt-6">
+        <div class="flex flex-col-reverse">
+          <dd class="text-xs text-gray-300">{{user.education}}</dd>
+          <dt class="text-sm font-medium text-gray-400">Education</dt>
+
+        </div>
+
+        <div class="flex flex-col-reverse ml-3 sm:ml-6">
+          <dd class="text-xs text-gray-300">{{user.techStack}}</dd>
+          <dt class="text-sm font-medium text-gray-400">Tech Stack</dt>
+
+        </div>
+      </dl>
+      <dl class="flex mt-6">
+        <div class="flex flex-col-reverse">
+          <dd class="text-xs text-gray-300">{{user.phoneno}}</dd>
+          <dt class="text-sm font-medium text-gray-400">Phone</dt>
+        </div>
+
+        <div class="flex flex-col-reverse ml-3 sm:ml-6">
+          <dd class="text-xs text-gray-300">{{user.email}}</dd>
+          <dt class="text-sm font-medium text-gray-400">Email</dt>
+        </div>
+      </dl>
+
+
+        </div>
+    </ng-container>
+
+
+  </div>
+
+
+</div>
+
+
+
+
+
+
+
+
 
 
 

@@ -2,11 +2,12 @@
   @apply bg-gray-800 text-gray-900 rounded-3xl;
   // height: auto;
   // min-height: 637px;
-  max-width: 637px !important;
+  max-width: 1280px !important;
 }
 
 .sign-up-model {
   @apply flex bg-gray-800  flex-col items-center px-0  sm:px-20;
+  max-width: 1280px !important;
 
   .btn-close {
    @apply absolute top-0 right-0 bg-white rounded-full opacity-50 m-3.5 hover:opacity-70;
@@ -91,3 +92,5 @@ input {
   background: white;
   border-radius: 8px;
 }
+
+

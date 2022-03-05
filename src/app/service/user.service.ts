@@ -25,7 +25,7 @@ export class UserService extends ApiService<userApiData> {
   getAllUser() {
 
     return this.get('/users/getAllUsers').pipe(take(1), tap((result:ApiResponse<userApiData>)=>{
-      debugger
+      // debugger
       if(!result.hasErrors()) {
 
         this._users$.next(result.data?.data)
@@ -52,7 +52,7 @@ export class UserService extends ApiService<userApiData> {
   }
 
   deleteUser(id: string): Observable<ApiResponse<any>> {
-    // debugger
-    return this.delete(`/users/deleteUser/${id}`);
+    debugger
+    return this.get(`/users/deleteUser/${id}`);
   }
 }
