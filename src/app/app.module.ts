@@ -16,6 +16,8 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 import { MatSliderModule } from '@angular/material/slider';
 import { EditUserComponent } from './ui-components/edit-user/edit-user.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrModule } from 'ngx-toastr';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +38,9 @@ import { EditUserComponent } from './ui-components/edit-user/edit-user.component
     MatDialogModule,
     MatIconModule,
     MatMenuModule,
-    MatSliderModule
+    MatSliderModule,
+    NgbModule,
+    ToastrModule.forRoot({ positionClass: 'toast-top-right' }),
   ],
   providers: [
     {

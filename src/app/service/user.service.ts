@@ -14,7 +14,7 @@ type userApiData = UserList;
   providedIn: 'root'
 })
 export class UserService extends ApiService<userApiData> {
-
+  public limit = 100;
   private _users$ = new BehaviorSubject<Array<User>>([]);
   public readonly users$: Observable<Array<User>>  = this._users$.asObservable();
 
@@ -22,20 +22,30 @@ export class UserService extends ApiService<userApiData> {
     super(http);
   }
 
-  getAllUser() {
-
-    return this.get('/users/getAllUsers').pipe(take(1), tap((result:ApiResponse<userApiData>)=>{
-      // debugger
-      if(!result.hasErrors()) {
-
-        this._users$.next(result.data?.data)
-        const ab = this._users$.getValue();
-        console.log(ab)
+  getAllUser(page: number, limit:number ) {
+    debugger
+    page--;
+    const param: any = {
+      offset: page ? this.limit * page : 0,
+      limit: this.limit,
+    }
+    return this.get('/users/getAllUsers', param).pipe(take(1), tap((result:ApiResponse<userApiData>)=>{
+      if(result.hasErrors()) {
+        console.log(result?.errors[0]?.error?.message)
       }
-      else {
-        console.error(result?.errors[0]?.error?.message)
-      }
-    })).subscribe();
+      // if(!result.hasErrors()) {
+
+      //   debugger
+      //   this._users$.next(result.data?.data)
+      //   const ab = this._users$.getValue();
+      //   console.log(ab)
+      // }
+      // else {
+      //   console.error(result?.errors[0]?.error?.message)
+      // }
+    }))
+    // .subscribe();
+
   }
 
   createUser(payload: User): Observable<ApiResponse<userApiData>> {
@@ -47,12 +57,11 @@ export class UserService extends ApiService<userApiData> {
     }));
   }
 
-  editUser(user: User, userID: string): Observable<ApiResponse<userApiData>>{
-    return this.post(`/users/updateUser/${userID}`, user);
+  editUser(userID: string, user: User): Observable<ApiResponse<userApiData>>{
+    return this.put(`/users/updateUser/${userID}`, user);
   }
 
   deleteUser(id: string): Observable<ApiResponse<any>> {
-    debugger
-    return this.get(`/users/deleteUser/${id}`);
+    return this.delete(`/users/deleteUser/${id}`);
   }
 }

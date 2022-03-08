@@ -15,7 +15,8 @@
 
 .content {
   display: flex;
-  margin: 82px auto 32px;
+  // margin: 82px auto ;
+  background: #1C2833;
   // padding: 0 16px;
   // max-width: 1280px;
   flex-direction: column;
@@ -43,11 +44,12 @@ svg.material-icons:not(:last-child) {
 .card {
   all: unset;
   border-radius: 4px;
-  border: 1px solid #eee;
+  border: 1px solid #adff2f;
   background-color: #fafafa;
   height: 40px;
   width: 200px;
-  margin: 0 8px 16px;
+  margin-top: 120px;
+  margin-bottom: 60px;
   padding: 16px;
   display: flex;
   flex-direction: row;
@@ -298,3 +300,7 @@ input {
 .error-msg{
   @apply text-red-400
 }
+::ng-deep .modal-content {
+  background-color: #1f2937 !important;
+}
+
