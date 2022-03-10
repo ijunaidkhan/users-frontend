@@ -19,6 +19,7 @@ import { EditUserComponent } from './ui-components/edit-user/edit-user.component
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
 import { SharedModule } from './modules/shared/shared/shared.module';
+import { ScrollTopComponent } from './reuseable/scroll-top/scroll-top.component';
 
 
 
@@ -30,6 +31,7 @@ import { SharedModule } from './modules/shared/shared/shared.module';
     FooterComponent,
     CreateUserComponent,
     EditUserComponent,
+    ScrollTopComponent,
   ],
   imports: [
 

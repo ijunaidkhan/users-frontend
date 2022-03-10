@@ -1,4 +1,4 @@
-<div class="absolute m-3" (click)="openNav()" >
+<div class="relative m-3" (click)="openNav()" >
   <img class="text-center text-white " style="width: 50px !important"  src="../../../assets/burger.svg" alt="">
 </div>
 
@@ -6,9 +6,7 @@
 <div id="myNav" class="overlay" #menu>
   <a class="closebtn" (click)="closeNav()">&times;</a>
   <div class="overlay-content">
-    <a routerLink="/users" routerLinkActive="active"><span style="color:greenyellow">Talented People</span></a>
-    <!-- <a href="#">Services</a>
-    <a href="#">Clients</a>
-    <a href="#">Contact</a> -->
+    <a routerLink="/home" routerLinkActive="active"><span>Home</span></a>
+    <a routerLink="/users" routerLinkActive="active"><span>Talented People</span></a>
   </div>
 </div>
