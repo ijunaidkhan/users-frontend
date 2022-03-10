@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BurgerMenuComponent } from './../../../reuseable/burger-menu/burger-menu.component';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -9,7 +10,9 @@ import { BurgerMenuComponent } from './../../../reuseable/burger-menu/burger-men
     BurgerMenuComponent
   ],
   imports: [
-    CommonModule
+
+  CommonModule,
+    RouterModule
   ],
   exports: [
     BurgerMenuComponent

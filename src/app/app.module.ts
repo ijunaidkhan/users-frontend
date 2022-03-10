@@ -18,6 +18,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { EditUserComponent } from './ui-components/edit-user/edit-user.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
+import { SharedModule } from './modules/shared/shared/shared.module';
 
 
 
@@ -33,6 +34,7 @@ import { ToastrModule } from 'ngx-toastr';
   imports: [
 
     BrowserModule,
+    SharedModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
