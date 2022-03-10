@@ -9,6 +9,8 @@ import { Subject, BehaviorSubject } from 'rxjs';
 import { UsersComponent } from './../../users/users.component';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DomSanitizer } from "@angular/platform-browser";
+import { CreateUserService } from 'src/app/service/create-user.service';
 
 
 @Component({
@@ -17,9 +19,28 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./create-user.component.scss']
 })
 export class CreateUserComponent implements OnInit {
+  defaultUser: User = {
+    name : '',
+    email: '',
+    bio: '',
+    phoneno: '',
+    techStack: '',
+    education: '',
+    // captureFileURL: '',
+    images: [
+      {
+        captureFileURL: ''
+      }
+    ]
+  }
+
 
   destroy$ = new Subject();
   public createUser!: FormGroup
+
+  public file: any;
+  public urls: any[] = [];
+  public imageSrc: any[] = [];
 
   // public limit = 2;
 
@@ -30,22 +51,62 @@ export class CreateUserComponent implements OnInit {
     private toastr: ToastrService,
     private formBuilder: FormBuilder,
     private userService: UserService,
+    private sanitizer: DomSanitizer,
+    public addUser: CreateUserService,
     private router: Router,
     private route: ActivatedRoute) {
-      this.createUser = this.formBuilder.group({
-        name: new FormControl('', [Validators.required, Validators.minLength(3)]),
-        email: new FormControl('', [Validators.required, Validators.email]),
-        education: new FormControl('', [Validators.required]),
-        phone: new FormControl('', Validators.required),
-        tech: new FormControl('', Validators.required),
-        bio: new FormControl('', [Validators.required])
-      });
 
 
      }
 
   ngOnInit(): void {
+    this.initUserForm();
+  }
 
+  initUserForm() {
+    this.createUser = this.formBuilder.group({
+      name: [
+        this.defaultUser.name,
+        Validators.compose([
+          Validators.required
+        ])
+      ],
+      bio: [
+        this.defaultUser.bio,
+        Validators.compose([
+          Validators.required
+        ])
+      ],
+      email: [
+        this.defaultUser.email,
+        Validators.compose([
+          Validators.required
+        ])
+      ],
+      phoneno: [
+        this.defaultUser.phoneno,
+        Validators.compose([
+          Validators.required
+        ])
+      ],
+      techStack: [
+        this.defaultUser.techStack,
+        Validators.compose([
+          Validators.required
+        ])
+      ],
+      education: [
+        this.defaultUser.education,
+        Validators.compose([
+          Validators.required
+        ])
+      ],
+     image: [
+        this.defaultUser.images,
+
+      ],
+
+    })
   }
 
 
@@ -86,6 +147,47 @@ export class CreateUserComponent implements OnInit {
 
 
   }
+
+  submit(user: User) {
+    debugger
+    return this.addUser.createUserProfile(user.bio, user.name, user.email, user.phoneno, user.education, user.techStack, this.urls)
+  }
+
+
+  onSelectFile(event:any) {
+
+    this.file = event.target.files && event.target.files.length;
+
+    // let club = this._clubService.selectedClub;
+    // let obj = {
+    //   baseUrl: club.baseURL
+    // };
+    if (this.file == 1) {
+      for (const singlefile of event.target.files) {
+
+
+        var reader = new FileReader();
+        reader.readAsDataURL(singlefile);
+        this.createUser.get('image')?.setValue(this.file.name);
+        this.urls.push(singlefile);
+        reader.onload = (event) => {
+          const url = this.sanitizer.bypassSecurityTrustUrl((<FileReader>event.target).result as string);
+          this.imageSrc.push(url);
+
+          if (this.imageSrc.length > 1) {
+            this.imageSrc.pop();
+            this.urls.pop();
+
+            this.toastr.error("Only one Image is allowed", "Upload Images");
+          }
+        };
+      }
+    } else {
+      this.toastr.error("Please Select One Image to Upload", "Upload Image");
+    }
+
+  }
+
 
 
   ngOnDestroy(): void {

@@ -304,3 +304,12 @@ input {
   background-color: #1f2937 !important;
 }
 
+
+#file-input::-webkit-file-upload-button {
+  visibility: hidden;
+  user-select: none;
+}
+#file-input{
+  display: none;
+  user-select: none;
+}

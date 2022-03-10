@@ -23,7 +23,6 @@ export class UserService extends ApiService<userApiData> {
   }
 
   getAllUser(page: number, limit:number ) {
-    debugger
     page--;
     const param: any = {
       offset: page ? this.limit * page : 0,

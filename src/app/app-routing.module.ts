@@ -4,9 +4,10 @@ import { UsersComponent } from './users/users.component';
 
 const routes: Routes = [
   {
-    path: 'home', component: UsersComponent
+    path: 'users', component: UsersComponent
   },
-  { path: '', redirectTo: '/home', pathMatch: 'full' }
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'home', loadChildren: () => import('./modules/home-page/home-page.module').then(m => m.HomePageModule) }
 ];
 
 @NgModule({

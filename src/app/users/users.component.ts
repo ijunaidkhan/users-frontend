@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { UserService } from './../service/user.service';
 import { take, takeUntil } from 'rxjs/operators';
 import { ApiResponse } from './../models/response.model';
@@ -10,6 +10,8 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { NgbModalConfig, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
+import { CreateUserService } from './../service/create-user.service';
+import { DomSanitizer } from "@angular/platform-browser";
 
 @Component({
   selector: 'app-users',
@@ -18,6 +20,22 @@ import { ToastrService } from 'ngx-toastr';
   providers: [NgbModalConfig, NgbModal]
 })
 export class UsersComponent implements OnInit {
+  defaultUser: User = {
+    name : '',
+    email: '',
+    bio: '',
+    phoneno: '',
+    techStack: '',
+    education: '',
+    // captureFileURL: '',
+    images: [
+      {
+        captureFileURL: ''
+      }
+    ]
+  }
+
+
   private _userForm$ = new BehaviorSubject<any>([]);
   // public userForm$ = this._userForm$.asObservable();
 
@@ -27,12 +45,17 @@ export class UsersComponent implements OnInit {
 
   public editUser!: FormGroup
   public createUser!: FormGroup
-
+  public file: any;
   name: any;
   bio: any;
   public limit = 2;
   public page:number;
   public user :any
+  public urls: any[] = [];
+  public imageSrc: any[] = [];
+
+
+
   // public createUser!: FormGroup
   destroy$ = new Subject();
 
@@ -48,14 +71,18 @@ export class UsersComponent implements OnInit {
   constructor(private userService: UserService, config: NgbModalConfig, private modalService: NgbModal,
     public dialog: MatDialog,
     private toastr: ToastrService,
+    public addUser: CreateUserService,
+    private sanitizer: DomSanitizer,
+    private cf: ChangeDetectorRef,
+
     private formBuilder: FormBuilder) {
       this.page = 1;
-       this.createUser = this.formBuilder.group({
+
+      this.editUser = this.formBuilder.group({
          id: [null],
         name: [null],
         email: [null],
         education: [null],
-        // experience: new FormControl('', [Validators.required]),
         phone: [null],
         tech: [null],
         bio: [null]
@@ -70,6 +97,52 @@ export class UsersComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUsers()
+    this.initUserForm();
+  }
+
+  initUserForm() {
+    this.createUser = this.formBuilder.group({
+      name: [
+        this.defaultUser.name,
+        Validators.compose([
+          Validators.required
+        ])
+      ],
+      bio: [
+        this.defaultUser.bio,
+        Validators.compose([
+          Validators.required
+        ])
+      ],
+      email: [
+        this.defaultUser.email,
+        Validators.compose([
+          Validators.required
+        ])
+      ],
+      phoneno: [
+        this.defaultUser.phoneno,
+        Validators.compose([
+          Validators.required
+        ])
+      ],
+      techStack: [
+        this.defaultUser.techStack,
+        Validators.compose([
+          Validators.required
+        ])
+      ],
+      education: [
+        this.defaultUser.education,
+        Validators.compose([
+          Validators.required
+        ])
+      ],
+     image: [
+        this.defaultUser.images
+      ],
+
+    })
   }
 
   open(ediUserDialog:any, user:User) {
@@ -81,7 +154,7 @@ export class UsersComponent implements OnInit {
         this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
       }
     );
-    this.createUser.setValue({
+    this.editUser.setValue({
       id: user.id,
       name: user.name,
       bio: user.bio,
@@ -119,32 +192,131 @@ export class UsersComponent implements OnInit {
     })
   }
 
-  submit() {
-    console.log(this.createUser.value);
-  }
+  // onSelectFile(event:any): void {
 
-  createuser() {
-    const payload: User = {
-      name: this.createUser.value.name,
-      email: this.createUser.value.email,
-      education: this.createUser.value.education,
-      // experience: this.createUser.value.experience,
-      phoneno: this.createUser.value.phone,
-      techStack: this.createUser.value.tech,
-      bio: this.createUser.value.bio
+  //   if (event.target.files && event.target.files[0]) {
+  //     this.imageSrc = event.target.files[0];
+  //     debugger
+  //     // this.createUser.get('image')?.setValue(this.file.name);
+
+  //     if (event.target.files && event.target.files[0]) {
+  //       debugger
+  //       const reader = new FileReader();
+  //       reader.onload = (e: any) => {
+  //         debugger
+  //         this.createUser.patchValue({
+  //           image: this.imageSrc,
+  //         });
+  //       };
+  //       reader.readAsDataURL(event.target.files[0]);
+  //     }
+  //   }
+  // }
+
+//   onSelectFile(event: any) {
+//     debugger
+//     const file = event.target.files[0] && event.target.files.length
+//     this.createUser.patchValue({
+//         image: file
+//     });
+//     const allowedMimeTypes = ["image/png", "image/jpeg", "image/jpg"];
+//     if (file && allowedMimeTypes.includes(file.type)) {
+//         const reader = new FileReader();
+//         debugger
+//         reader.onload = () => {
+//             this.imageSrc.push(reader.result as string)
+//         };
+//         reader.readAsDataURL(file);
+//     }
+// }
+
+// onSelectFile(event: any) {
+//   debugger
+//   this.file = event.target.files && event.target.files.length;
+//   if (this.file > 0 && this.file < 5) {
+//     let i: number = 0;
+//     for (const singlefile of event.target.files) {
+//       var reader = new FileReader();
+//       reader.readAsDataURL(singlefile);
+//       this.urls.push(singlefile);
+//       i++;
+//       reader.onload = (event) => {
+//         debugger
+//         const url = (<FileReader>event.target).result as string;
+//         this.imageSrc.push(url);
+//         if (this.imageSrc.length > 4) {
+//           this.imageSrc.pop();
+//           this.urls.pop();
+//           this.toastr.warning('Maximum No. of files reached', 'File Limit!')
+//         }
+//       };
+//     }
+//   }
+// }
+
+
+onSelectFile(event:any) {
+
+  this.file = event.target.files && event.target.files.length;
+
+  // let club = this._clubService.selectedClub;
+  // let obj = {
+  //   baseUrl: club.baseURL
+  // };
+  if (this.file == 1) {
+    for (const singlefile of event.target.files) {
+
+
+      var reader = new FileReader();
+      reader.readAsDataURL(singlefile);
+      this.createUser.get('image')?.setValue(this.file.name);
+      this.urls.push(singlefile);
+      this.cf.detectChanges();
+      reader.onload = (event) => {
+        const url = this.sanitizer.bypassSecurityTrustUrl((<FileReader>event.target).result as string);
+        this.imageSrc.push(url);
+        this.cf.detectChanges();
+        if (this.imageSrc.length > 1) {
+          this.imageSrc.pop();
+          this.urls.pop();
+          this.cf.detectChanges();
+          this.toastr.error("Only one Image is allowed", "Upload Images");
+        }
+      };
     }
-    this.userService.createUser(payload).pipe(takeUntil(this.destroy$)).subscribe((res: ApiResponse<any>)=> {
-      if(!res.hasErrors()) {
-        this.toastr.success('User Created!', `User with name ${this.createUser.value.name} is added.`)
-
-      }
-      else {
-        this.toastr.error('Failed To Create New User', 'Create User');
-      }
-    })
-
-
+  } else {
+    this.toastr.error("Please Select One Image to Upload", "Upload Image");
   }
+
+}
+
+
+  submit(user: User) {
+    return this.addUser.createUserProfile(user.bio, user.name, user.email, user.phoneno, user.education, user.techStack, this.urls)
+  }
+
+  // createuser(user: User) {
+    // const payload: User = {
+    //   name: this.createUser.value.name,
+    //   email: this.createUser.value.email,
+    //   education: this.createUser.value.education,
+    //   // experience: this.createUser.value.experience,
+    //   phoneno: this.createUser.value.phone,
+    //   techStack: this.createUser.value.tech,
+    //   bio: this.createUser.value.bio
+    // }
+    // this.userService.createUser(payload).pipe(takeUntil(this.destroy$)).subscribe((res: ApiResponse<any>)=> {
+    //   if(!res.hasErrors()) {
+    //     this.toastr.success('User Created!', `User with name ${this.createUser.value.name} is added.`)
+
+    //   }
+    //   else {
+    //     this.toastr.error('Failed To Create New User', 'Create User');
+    //   }
+    // })
+
+
+  // }
 
 
   deleteUser(user: User) {
@@ -158,12 +330,11 @@ export class UsersComponent implements OnInit {
 
 
   updateUser() {
-    debugger
-    this.userService.editUser(this.createUser.value.id, this.createUser.value).pipe(takeUntil(this.destroy$)).subscribe((res: ApiResponse<any>)=> {
-      debugger
+    this.userService.editUser(this.editUser.value.id, this.editUser.value).pipe(takeUntil(this.destroy$)).subscribe((res: ApiResponse<any>)=> {
       if(!res.hasErrors()) {
-      this.toastr.success('Updated!', `${this.createUser.value.name} is updated succesfully`)
-        this.close();
+      this.toastr.success('Updated!', `${this.editUser.value.name} is updated succesfully`)
+      this.getUsers()
+        // this.close();
        }
       else {
         console.log('something went wrong')
