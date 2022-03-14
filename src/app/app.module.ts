@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -20,6 +20,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
 import { SharedModule } from './modules/shared/shared/shared.module';
 import { ScrollTopComponent } from './reuseable/scroll-top/scroll-top.component';
+import { CardComponent } from './ui-components/card/card.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 
@@ -32,6 +34,7 @@ import { ScrollTopComponent } from './reuseable/scroll-top/scroll-top.component'
     CreateUserComponent,
     EditUserComponent,
     ScrollTopComponent,
+    CardComponent,
   ],
   imports: [
 
@@ -47,6 +50,7 @@ import { ScrollTopComponent } from './reuseable/scroll-top/scroll-top.component'
     MatMenuModule,
     MatSliderModule,
     NgbModule,
+    NgxSpinnerModule,
     ToastrModule.forRoot({ positionClass: 'toast-top-right' }),
   ],
   providers: [

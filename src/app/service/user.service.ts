@@ -7,6 +7,7 @@ import { take, tap } from 'rxjs/operators';
 import { ApiResponse } from '../models/response.model';
 import { ThrowStmt } from '@angular/compiler';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 type userApiData = UserList;
 
@@ -18,11 +19,20 @@ export class UserService extends ApiService<userApiData> {
   private _users$ = new BehaviorSubject<Array<User>>([]);
   public readonly users$: Observable<Array<User>>  = this._users$.asObservable();
 
-  constructor( protected http: HttpClient) {
+  private _totalCount$ = new BehaviorSubject<number>(0);
+  public readonly totalCount$: Observable<number> = this._totalCount$.asObservable();
+
+  private _isLoading$ = new BehaviorSubject<boolean | any>(false);
+  public readonly isLoading$: Observable<boolean | any> = this._isLoading$.asObservable();
+
+
+  constructor( protected http: HttpClient,
+    protected toastrService: ToastrService) {
     super(http);
   }
 
   getAllUser(page: number, limit:number ) {
+    this._isLoading$.next(true)
     page--;
     const param: any = {
       offset: page ? this.limit * page : 0,
@@ -32,27 +42,31 @@ export class UserService extends ApiService<userApiData> {
       if(result.hasErrors()) {
         console.log(result?.errors[0]?.error?.message)
       }
-      // if(!result.hasErrors()) {
+      this._isLoading$.next(false)
+      if(!result.hasErrors()) {
 
-      //   debugger
-      //   this._users$.next(result.data?.data)
-      //   const ab = this._users$.getValue();
-      //   console.log(ab)
-      // }
-      // else {
-      //   console.error(result?.errors[0]?.error?.message)
-      // }
+        debugger
+        this._users$.next(result.data?.data)
+        const ab = this._users$.getValue();
+        console.log(ab)
+      }
+      else {
+        this.toastrService.error(result?.errors[0]?.error?.message)
+      }
     }))
-    // .subscribe();
+    .subscribe();
 
   }
 
   createUser(payload: User): Observable<ApiResponse<userApiData>> {
     return this.post('/users/createUser', payload).pipe(tap((result:ApiResponse<any>)=>{
       if(!result.hasErrors()){
-        const user: Array<User> = this._users$.getValue();
-        this._users$.next((<User>result?.data)?.id)
-      }
+        this._totalCount$.next(this._totalCount$.getValue()+1);
+        if(this._users$.getValue().length < this.limit) {
+          const user: Array<User> = this._users$.getValue();
+          this._users$.next([result.data,...user])
+        }
+       }
     }));
   }
 
@@ -61,6 +75,13 @@ export class UserService extends ApiService<userApiData> {
   }
 
   deleteUser(id: string): Observable<ApiResponse<any>> {
-    return this.delete(`/users/deleteUser/${id}`);
-  }
+    return this.delete(`/users/deleteUser/${id}`).pipe(take(1),tap((result:ApiResponse<any>)=> {
+      if (result.hasErrors()) {
+        this.toastrService.error(result?.errors[0]?.error?.message)
+      }
+  }))
 }
+
+
+}
+

@@ -1,16 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { first, takeUntil } from 'rxjs/operators';
+import { first, takeUntil, mergeMap } from 'rxjs/operators';
 import { User } from './../../models/user.model';
 import { UserService } from './../../service/user.service';
 import { ApiResponse } from './../../models/response.model';
-import { Subject, BehaviorSubject } from 'rxjs';
+import { Subject, BehaviorSubject, Observable, combineLatest } from 'rxjs';
 import { UsersComponent } from './../../users/users.component';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer } from "@angular/platform-browser";
 import { CreateUserService } from 'src/app/service/create-user.service';
+import { MediaUploadService } from './../../service/media-upload.service';
+import { Media } from './../../models/media.model';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 @Component({
@@ -41,8 +44,11 @@ export class CreateUserComponent implements OnInit {
   public file: any;
   public urls: any[] = [];
   public imageSrc: any[] = [];
+  public users$ = this.userService.users$;
+  private _isLoading:boolean;
 
-  // public limit = 2;
+  public limit = 2;
+  public page!: number;
 
   experiences: any = ['2 Years', '3 Years', '4 Years', '5 Years', 'More than 5 years']
   education: any = ['HSSC', 'SSC', 'Graduation', 'Masters', 'PHD/M.phil', 'Others']
@@ -50,14 +56,26 @@ export class CreateUserComponent implements OnInit {
   constructor(public matDialog: MatDialog,
     private toastr: ToastrService,
     private formBuilder: FormBuilder,
-    private userService: UserService,
     private sanitizer: DomSanitizer,
     public addUser: CreateUserService,
     private router: Router,
-    private route: ActivatedRoute) {
-
-
+    private route: ActivatedRoute,
+    public mediaUplaod: MediaUploadService,
+    public userService: UserService,
+    private spinner: NgxSpinnerService
+    ) {
+      this.page = 1;
+      this._isLoading = false;
+      this.getUsers();
      }
+
+     showSpinner() {
+      this.spinner.show();
+      setTimeout(() => {
+        this.spinner.hide();
+        this.close()
+      }, 5000);
+    }
 
   ngOnInit(): void {
     this.initUserForm();
@@ -111,11 +129,9 @@ export class CreateUserComponent implements OnInit {
 
 
 
-  getUser() {
-    // const param:any =  {
-    //   limit: this.limit
-    // }
-    // this.userService.getAllUser(1);
+  getUsers() {
+    if(this._isLoading) return
+    this.userService.getAllUser(this.page, this.limit)
   }
 
   close(){
@@ -123,7 +139,7 @@ export class CreateUserComponent implements OnInit {
   }
 
   createuser() {
-    debugger
+  this.showSpinner();
     const payload: User = {
       name: this.createUser.value.name,
       email: this.createUser.value.email,
@@ -133,25 +149,65 @@ export class CreateUserComponent implements OnInit {
       techStack: this.createUser.value.tech,
       bio: this.createUser.value.bio
     }
+
+    // return this.userService.createUser(payload)
+
     debugger
     this.userService.createUser(payload).pipe(takeUntil(this.destroy$)).subscribe((res: ApiResponse<any>)=> {
       if(!res.hasErrors()) {
         this.toastr.success('User Created!', `User with name ${this.createUser.value.name} is added.`)
-        this.close()
-        this.getUser()
+
+        this.getUsers()
        }
       else {
-        console.log('something went wrong')
+        this.toastr.warning(res.errors?.error, 'Error!');
       }
     })
 
 
   }
 
-  submit(user: User) {
+  // submit(user: User) {
+  //   debugger
+  //   return this.addUser.createUserProfile(user.bio, user.name, user.email, user.phoneno, user.education, user.techStack, this.urls)
+  // }
+
+  async createUserProfile(user:User){
     debugger
-    return this.addUser.createUserProfile(user.bio, user.name, user.email, user.phoneno, user.education, user.techStack, this.urls)
-  }
+    this.showSpinner();
+
+    let mapUser = new User();
+    mapUser.bio = user.bio;
+    mapUser.email = user.email;
+    mapUser.name = user.name;
+    mapUser.education = user.education;
+    mapUser.phoneno = parseInt(user.phoneno);
+    mapUser.techStack = user.techStack;
+    // mapUser.captureFileURL = '';
+    mapUser.images = [];
+
+   let mediaReq: Array<Observable<any>> = []
+   debugger
+
+   await this.urls.forEach((file:any)=> {
+    mediaReq.push(this.mediaUplaod.uploadMedia('test', file))
+  })
+
+  combineLatest(mediaReq).pipe(mergeMap((uploadMedia):any => {
+    uploadMedia.forEach((res:ApiResponse<any>) => {
+      let media = new Media();
+      media.captureFileURL = res.data.url;
+      // mapUser.captureFileURL = res.data.url;
+      mapUser.images?.push(media);
+    })
+    return this.userService.createUser(mapUser)
+  })).subscribe(() => {
+    this.toastr.success('Upload success!', 'User created successfully.')
+  });
+  // this.matDialog.closeAll();
+
+  this.getUsers()
+}
 
 
   onSelectFile(event:any) {

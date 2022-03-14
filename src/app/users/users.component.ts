@@ -12,6 +12,7 @@ import { Subject, BehaviorSubject } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 import { CreateUserService } from './../service/create-user.service';
 import { DomSanitizer } from "@angular/platform-browser";
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-users',
@@ -41,7 +42,10 @@ export class UsersComponent implements OnInit {
 
   public userList?: UserList;
   public users$ = this.userService.users$;
+  public totalCount$ = this.userService.totalCount$;
+  public isLoading$ = this.userService.isLoading$;
   closeResult?: string;
+  public isLoading!:boolean;
 
   public editUser!: FormGroup
   public createUser!: FormGroup
@@ -74,7 +78,7 @@ export class UsersComponent implements OnInit {
     public addUser: CreateUserService,
     private sanitizer: DomSanitizer,
     private cf: ChangeDetectorRef,
-
+    private spinner: NgxSpinnerService,
     private formBuilder: FormBuilder) {
       this.page = 1;
 
@@ -97,53 +101,58 @@ export class UsersComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUsers()
-    this.initUserForm();
+    // this.showSpinner()
+    // this.initUserForm();
   }
 
-  initUserForm() {
-    this.createUser = this.formBuilder.group({
-      name: [
-        this.defaultUser.name,
-        Validators.compose([
-          Validators.required
-        ])
-      ],
-      bio: [
-        this.defaultUser.bio,
-        Validators.compose([
-          Validators.required
-        ])
-      ],
-      email: [
-        this.defaultUser.email,
-        Validators.compose([
-          Validators.required
-        ])
-      ],
-      phoneno: [
-        this.defaultUser.phoneno,
-        Validators.compose([
-          Validators.required
-        ])
-      ],
-      techStack: [
-        this.defaultUser.techStack,
-        Validators.compose([
-          Validators.required
-        ])
-      ],
-      education: [
-        this.defaultUser.education,
-        Validators.compose([
-          Validators.required
-        ])
-      ],
-     image: [
-        this.defaultUser.images
-      ],
-
-    })
+  showSpinner() {
+    this.spinner.show();
   }
+
+  // initUserForm() {
+  //   this.createUser = this.formBuilder.group({
+  //     name: [
+  //       this.defaultUser.name,
+  //       Validators.compose([
+  //         Validators.required
+  //       ])
+  //     ],
+  //     bio: [
+  //       this.defaultUser.bio,
+  //       Validators.compose([
+  //         Validators.required
+  //       ])
+  //     ],
+  //     email: [
+  //       this.defaultUser.email,
+  //       Validators.compose([
+  //         Validators.required
+  //       ])
+  //     ],
+  //     phoneno: [
+  //       this.defaultUser.phoneno,
+  //       Validators.compose([
+  //         Validators.required
+  //       ])
+  //     ],
+  //     techStack: [
+  //       this.defaultUser.techStack,
+  //       Validators.compose([
+  //         Validators.required
+  //       ])
+  //     ],
+  //     education: [
+  //       this.defaultUser.education,
+  //       Validators.compose([
+  //         Validators.required
+  //       ])
+  //     ],
+  //    image: [
+  //       this.defaultUser.images
+  //     ],
+
+  //   })
+  // }
 
   open(ediUserDialog:any, user:User) {
     this.modalService.open(ediUserDialog, { centered: true }).result.then(
@@ -183,13 +192,10 @@ export class UsersComponent implements OnInit {
   }
 
   getUsers() {
+    // if (this.isLoading) return
+    // this.isLoading = true;
     this.userService.getAllUser(this.page, this.limit)
-    .pipe(takeUntil(this.destroy$))
-    .subscribe((result:ApiResponse<UserList>) => {
-      if(!result.hasErrors()) {
-        this.userList = result.data;
-      }
-    })
+    // this.isLoading = false;
   }
 
   // onSelectFile(event:any): void {
@@ -291,9 +297,7 @@ onSelectFile(event:any) {
 }
 
 
-  submit(user: User) {
-    return this.addUser.createUserProfile(user.bio, user.name, user.email, user.phoneno, user.education, user.techStack, this.urls)
-  }
+
 
   // createuser(user: User) {
     // const payload: User = {

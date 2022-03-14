@@ -1,7 +1,11 @@
 
 
 <h2  mat-dialog-title class="text-white">Create User</h2>
-<mat-dialog-content class="custom-scrollbar-css">
+<mat-dialog-content class="relative custom-scrollbar-css">
+
+  <!-- <ngx-spinner bdColor = "rgba(0, 0, 0, 0.3)" size = "medium" color = "#fff" type = "square-jelly-box" [fullScreen] = "true">
+    <p class="text-white loading">Please wait . . . . .</p>
+  </ngx-spinner> -->
   <div class="flex justify-end">
     <button style="position: absolute;
     top: 15px;
@@ -101,7 +105,7 @@ style="background:url('https://images.unsplash.com/photo-1623479322729-28b25c16b
 
 
     <div class="flex flex-col w-full p-8 mt-10 bg-gray-900 rounded-md lg:w-3/6 xl:w-2/5 md:w-full lg:ml-auto lg:mt-0">
-      <form [formGroup]="createUser" (ngSubmit)="submit(createUser.value)" >
+      <form [formGroup]="createUser" >
 
         <div class="relative mb-4">
           <label for="full-name" class="text-sm leading-7 text-gray-600">Name</label>
@@ -223,7 +227,7 @@ style="background:url('https://images.unsplash.com/photo-1623479322729-28b25c16b
       </div>
 
 
-      <button  type="submit" (click)="submit(createUser.value); close()" [disabled]="createUser.invalid || createUser.errors"  class="px-8 py-2 text-lg text-white border-0 rounded-md bg-lime-500 disabled:opacity-75 focus:outline-none">
+      <button  type="submit" (click)="createUserProfile(createUser.value);" [disabled]="createUser.invalid || createUser.errors"  class="px-8 py-2 text-lg text-white border-0 rounded-md bg-lime-500 disabled:opacity-75 focus:outline-none">
         Submit
       </button>
       <button  type="reset"   class="px-8 py-2 ml-2 text-lg text-white bg-gray-400 border-0 rounded-md focus:outline-none">
@@ -234,10 +238,6 @@ style="background:url('https://images.unsplash.com/photo-1623479322729-28b25c16b
 </section>
 
 </mat-dialog-content>
-<!-- <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close class="mr-2 text-white border-t-neutral-400">Clear</button>
-  <button mat-button [mat-dialog-close]="true" type="submit" [disabled]="createUser.invalid || createUser.errors"  class="px-8 py-2 text-lg text-white bg-green-500 border-0 rounded-md focus:outline-none hover:bg-green-600">Submit</button>
-</mat-dialog-actions> -->
 
 
 <ng-template #formError let-control="control" let-message="message" let-validation="validation">
