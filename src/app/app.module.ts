@@ -22,6 +22,8 @@ import { SharedModule } from './modules/shared/shared/shared.module';
 import { ScrollTopComponent } from './reuseable/scroll-top/scroll-top.component';
 import { CardComponent } from './ui-components/card/card.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { UserDetailsComponent } from './user-details/user-details.component';
+import { UserDetailsPageComponent } from './user-details-page/user-details-page.component';
 
 
 
@@ -35,6 +37,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     EditUserComponent,
     ScrollTopComponent,
     CardComponent,
+    UserDetailsComponent,
+    UserDetailsPageComponent,
   ],
   imports: [
 

@@ -101,6 +101,12 @@ export class CreateUserComponent implements OnInit {
           Validators.required
         ])
       ],
+      gender: [
+        this.defaultUser.gender,
+        Validators.compose([
+          Validators.required
+        ])
+      ],
       phoneno: [
         this.defaultUser.phoneno,
         Validators.compose([
@@ -152,7 +158,7 @@ export class CreateUserComponent implements OnInit {
 
     // return this.userService.createUser(payload)
 
-    debugger
+
     this.userService.createUser(payload).pipe(takeUntil(this.destroy$)).subscribe((res: ApiResponse<any>)=> {
       if(!res.hasErrors()) {
         this.toastr.success('User Created!', `User with name ${this.createUser.value.name} is added.`)
@@ -173,12 +179,13 @@ export class CreateUserComponent implements OnInit {
   // }
 
   async createUserProfile(user:User){
-    debugger
+
     this.showSpinner();
 
     let mapUser = new User();
     mapUser.bio = user.bio;
     mapUser.email = user.email;
+    mapUser.gender = user.gender;
     mapUser.name = user.name;
     mapUser.education = user.education;
     mapUser.phoneno = parseInt(user.phoneno);
@@ -187,7 +194,7 @@ export class CreateUserComponent implements OnInit {
     mapUser.images = [];
 
    let mediaReq: Array<Observable<any>> = []
-   debugger
+
 
    await this.urls.forEach((file:any)=> {
     mediaReq.push(this.mediaUplaod.uploadMedia('test', file))

@@ -5,6 +5,7 @@ export class User {
   id?:	string | any;
   name?:	string | any;
   bio?:	string | any;
+  gender?:	string | any;
   email?:	string| any;
   address?:	string | any;
   experience?:	number| any;

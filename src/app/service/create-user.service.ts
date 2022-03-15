@@ -19,11 +19,12 @@ export class CreateUserService {
   constructor(public mediaUplaod: MediaUploadService, public userService: UserService,
      public toastr: ToastrService) { }
 
-  async createUserProfile(bio: string, name: string, email: string, phoneno: string, education: string, techStack: string, image: any){
+  async createUserProfile(bio: string, name: string, email: string, gender: string, phoneno: string, education: string, techStack: string, image: any){
 
     let mapUser = new User();
     mapUser.bio = bio;
     mapUser.email = email;
+    mapUser.gender = gender;
     mapUser.name = name;
     mapUser.education = education;
     mapUser.phoneno = parseInt(phoneno);

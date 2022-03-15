@@ -45,7 +45,7 @@ export class UserService extends ApiService<userApiData> {
       this._isLoading$.next(false)
       if(!result.hasErrors()) {
 
-        debugger
+
         this._users$.next(result.data?.data)
         const ab = this._users$.getValue();
         console.log(ab)
@@ -56,6 +56,17 @@ export class UserService extends ApiService<userApiData> {
     }))
     .subscribe();
 
+  }
+
+  getUserById(id: string) : Observable<ApiResponse<any>> {
+    const param: any = {
+      id: id
+    }
+    return this.get(`/users/getUserById/${param.id}`).pipe(take(1), tap((result:ApiResponse<any>)=> {
+      if (result.hasErrors()) {
+        this.toastrService.error(result?.errors[0]?.error?.message)
+      }
+    }))
   }
 
   createUser(payload: User): Observable<ApiResponse<userApiData>> {

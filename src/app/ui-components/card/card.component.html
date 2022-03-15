@@ -29,19 +29,22 @@ aria-label="Example icon-button with a menu" aria-expanded="true" aria-haspopup=
     <h5 class="text-xl font-bold text-gray-100">
       {{user.name}}
     </h5>
-    <p class="mt-1 text-xs font-medium text-gray-400">By John Doe</p>
+    <p class="mt-1 text-xs font-medium text-gray-400">{{user?.gender | uppercase}}</p>
   </div>
 
   <div class="flex items-center flex-shrink-0 hidden ml-3 sm:block">
-    <img
+    <a [routerLink]="['/', 'detail', user.id]">
+      <img
       class="object-cover w-16 h-16 rounded-lg shadow-sm"
       [src]="user.images[0]?.captureFileURL"
       alt=""/>
+    </a>
+
   </div>
 </div>
 
 <div class="mt-4 sm:pr-8">
-  <p class="text-sm text-gray-200">
+  <p class="text-sm text-gray-200 trun">
     {{user.bio}}
   </p>
 </div>

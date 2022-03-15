@@ -126,3 +126,15 @@ input {
   display: none;
   user-select: none;
 }
+
+
+.trun{
+  height: auto;
+  line-height: 1em;
+  font-weight: 300;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  word-break: break-all;
+  overflow:hidden;
+  white-space: nowrap;
+}

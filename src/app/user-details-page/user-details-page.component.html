@@ -1,0 +1,44 @@
+<div class="main-container content">
+  <div class="p-16 ">
+    <div class="p-8 mt-24 shadow bg">
+      <div class="grid grid-cols-1 md:grid-cols-3">
+        <!-- <div class="grid order-last grid-cols-3 mt-20 text-center md:order-first md:mt-0">
+          <div>
+            <p class="text-xl font-bold text-white">22</p>
+            <p class="text-white">dsfsdf</p>
+          </div>
+          <div>
+            <p class="text-xl font-bold text-white">10</p>
+            <p class="text-white">Photos</p>
+          </div>
+          <div>
+            <p class="text-xl font-bold text-white">89</p>
+            <p class="text-white">Comments</p>
+          </div>
+        </div> -->
+        <div class="">
+          <div
+           >
+            <img  class="absolute inset-x-0 flex items-center justify-center object-cover w-48 h-48 mx-auto -mt-24 text-indigo-500 bg-indigo-100 rounded-full shadow-2xl" [src]="user.images[0]?.captureFileURL" alt="">
+          </div>
+        </div>
+        <!-- <div class="flex justify-between mt-32 space-x-8 md:mt-0 md:justify-center"><button
+            class="text-white py-2 px-4 uppercase rounded bg-blue-400 hover:bg-blue-500 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5">
+            Connect</button> <button
+            class="text-white py-2 px-4 uppercase rounded bg-gray-700 hover:bg-gray-800 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5">
+            Message</button> </div> -->
+      </div>
+      <div class="pb-12 mt-32 text-center border-b border-lime-500">
+        <h1 class="text-4xl font-medium text-lime-500">{{user?.name}} <span class="font-light text-white">{{user?.gender}}</span>
+        </h1>
+        <p class="mt-3 font-light text-white">{{user?.name}}</p>
+        <p class="mt-8 text-gray-500">{{user?.education}}</p>
+        <p class="mt-2 text-gray-500">{{user?.techStack}}</p>
+      </div>
+      <div class="flex flex-col items-center justify-center mt-12">
+        <p class="font-light text-center text-white lg:px-16">{{user?.bio}}</p>
+        <button class="flex justify-center px-4 py-2 mt-4 font-medium border-2 rounded-sm cursor-pointer text-lime-500 border-lime-500 w-28" [routerLink]="['/', 'users']"> Back</button>
+      </div>
+    </div>
+  </div>
+</div>
