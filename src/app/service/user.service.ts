@@ -7,6 +7,7 @@ import { take, tap } from 'rxjs/operators';
 import { ApiResponse } from '../models/response.model';
 import { ThrowStmt } from '@angular/compiler';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 type userApiData = UserList;
 
@@ -14,45 +15,84 @@ type userApiData = UserList;
   providedIn: 'root'
 })
 export class UserService extends ApiService<userApiData> {
-
+  public limit = 100;
   private _users$ = new BehaviorSubject<Array<User>>([]);
   public readonly users$: Observable<Array<User>>  = this._users$.asObservable();
 
-  constructor( protected http: HttpClient) {
+  private _totalCount$ = new BehaviorSubject<number>(0);
+  public readonly totalCount$: Observable<number> = this._totalCount$.asObservable();
+
+  private _isLoading$ = new BehaviorSubject<boolean | any>(false);
+  public readonly isLoading$: Observable<boolean | any> = this._isLoading$.asObservable();
+
+
+  constructor( protected http: HttpClient,
+    protected toastrService: ToastrService) {
     super(http);
   }
 
-  getAllUser() {
-
-    return this.get('/users/getAllUsers').pipe(take(1), tap((result:ApiResponse<userApiData>)=>{
-      // debugger
+  getAllUser(page: number, limit:number ) {
+    this._isLoading$.next(true)
+    page--;
+    const param: any = {
+      offset: page ? this.limit * page : 0,
+      limit: this.limit,
+    }
+    return this.get('/users/getAllUsers', param).pipe(take(1), tap((result:ApiResponse<userApiData>)=>{
+      if(result.hasErrors()) {
+        console.log(result?.errors[0]?.error?.message)
+      }
+      this._isLoading$.next(false)
       if(!result.hasErrors()) {
+
 
         this._users$.next(result.data?.data)
         const ab = this._users$.getValue();
         console.log(ab)
       }
       else {
-        console.error(result?.errors[0]?.error?.message)
+        this.toastrService.error(result?.errors[0]?.error?.message)
       }
-    })).subscribe();
+    }))
+    .subscribe();
+
+  }
+
+  getUserById(id: string) : Observable<ApiResponse<any>> {
+    const param: any = {
+      id: id
+    }
+    return this.get(`/users/getUserById/${param.id}`).pipe(take(1), tap((result:ApiResponse<any>)=> {
+      if (result.hasErrors()) {
+        this.toastrService.error(result?.errors[0]?.error?.message)
+      }
+    }))
   }
 
   createUser(payload: User): Observable<ApiResponse<userApiData>> {
     return this.post('/users/createUser', payload).pipe(tap((result:ApiResponse<any>)=>{
       if(!result.hasErrors()){
-        const user: Array<User> = this._users$.getValue();
-        this._users$.next((<User>result?.data)?.id)
-      }
+        this._totalCount$.next(this._totalCount$.getValue()+1);
+        if(this._users$.getValue().length < this.limit) {
+          const user: Array<User> = this._users$.getValue();
+          this._users$.next([result.data,...user])
+        }
+       }
     }));
   }
 
-  editUser(user: User, userID: string): Observable<ApiResponse<userApiData>>{
-    return this.post(`/users/updateUser/${userID}`, user);
+  editUser(userID: string, user: User): Observable<ApiResponse<userApiData>>{
+    return this.put(`/users/updateUser/${userID}`, user);
   }
 
   deleteUser(id: string): Observable<ApiResponse<any>> {
-    debugger
-    return this.get(`/users/deleteUser/${id}`);
-  }
+    return this.delete(`/users/deleteUser/${id}`).pipe(take(1),tap((result:ApiResponse<any>)=> {
+      if (result.hasErrors()) {
+        this.toastrService.error(result?.errors[0]?.error?.message)
+      }
+  }))
 }
+
+
+}
+

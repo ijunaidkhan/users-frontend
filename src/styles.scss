@@ -2,6 +2,7 @@
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 @use '~@angular/material' as mat;
+
 // Plus imports for other components in your app.
 
 // Include the common styles for Angular Material. We include this here so that you only
@@ -39,9 +40,15 @@ $frontend-app-theme: mat.define-light-theme((
 @tailwind utilities;
 
 
-body{
-  background: #1C2833
+body {
+  @apply h-full;
+  background: #141E30;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #1d2d3f, #141E30);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #243B55, #071022); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+
 }
+
 
 html, body
 {
@@ -61,6 +68,15 @@ body {
   }
 }
 
+.main-container {
+  @apply flex flex-col justify-between my-0 mx-auto sm:px-4 ;
+  @apply md:px-8;
+  @apply lg:px-10;
+  max-width: 1280px;
+  min-width: 340px;
+}
 
 
 
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';

@@ -1,0 +1,140 @@
+.card-size {
+  height: 358px;
+  width: 281px;
+}
+
+
+.dropdown-btn {
+  @apply flex justify-end w-full text-white;
+  position: relative;
+  top: -5px;
+  left: 8px;
+}
+
+
+.material-icons.color_white { color: #FFFFFF; }
+
+
+
+::ng-deep .create-user-form-overlay .mat-dialog-container {
+  @apply bg-gray-800 text-gray-900 rounded-3xl;
+  // height: auto;
+  // min-height: 637px;
+  max-width: 1280px !important;
+}
+
+.sign-up-model {
+  @apply flex bg-gray-800  flex-col items-center px-0  sm:px-20;
+
+  .btn-close {
+   @apply absolute top-0 right-0 bg-white rounded-full opacity-50 m-3.5 hover:opacity-70;
+   padding: 1px;
+   svg {
+     color: #132356;
+   }
+ }
+
+ .logo {
+   @apply object-scale-down mt-6 sm:mt-6 md:mt-2;
+   // width: 410px;
+   height: 90px;
+ }
+
+ h1 {
+   @apply capitalize my-5 text-3xl text-white;
+   font-weight: 400;
+   span {
+     padding-bottom: 4px;
+     border-bottom: 2px solid #75F16D;
+   }
+ }
+
+ form {
+   @apply flex flex-col w-full;
+
+   p{
+     @apply text-red-400
+   }
+
+   label {
+     @apply text-white pt-4 text-lg;
+   }
+
+   input {
+     @apply px-7;
+   }
+
+   .signup {
+     @apply w-72 h-16 my-10 sm:my-3 self-center;
+   }
+
+ }
+
+}
+
+
+textarea,
+input {
+  @apply h-11 bg-gray-400 rounded-lg text-lg focus:outline-none px-4 ;
+}
+
+.primary-btn {
+  @apply px-5 py-1 rounded-full ;
+  background: transparent linear-gradient(109deg, #59C8D1 0%, #75F16D 100%) 0% 0% no-repeat padding-box;
+}
+
+.custom-scrollbar-css {
+  height: 500px;
+}
+/* Custom Scrollbar using CSS */
+.custom-scrollbar-css {
+  overflow-y: scroll;
+}
+/* scrollbar width */
+.custom-scrollbar-css::-webkit-scrollbar {
+  width: 7px;
+}
+/* scrollbar track */
+.custom-scrollbar-css::-webkit-scrollbar-track {
+  background: #132356;
+}
+/* scrollbar handle */
+.custom-scrollbar-css::-webkit-scrollbar-thumb {
+  border-radius: 1rem;
+  background-color: #34ABC5;
+  background-image: linear-gradient(to top, #3ABFF3 0%, #75F16D 100%);
+}
+
+.mat-slider {
+  background: white;
+  border-radius: 8px;
+}
+
+.error-msg{
+  @apply text-red-400
+}
+::ng-deep .modal-content {
+  background-color: #1f2937 !important;
+}
+
+
+#file-input::-webkit-file-upload-button {
+  visibility: hidden;
+  user-select: none;
+}
+#file-input{
+  display: none;
+  user-select: none;
+}
+
+
+.trun{
+  height: auto;
+  line-height: 1em;
+  font-weight: 300;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  word-break: break-all;
+  overflow:hidden;
+  white-space: nowrap;
+}

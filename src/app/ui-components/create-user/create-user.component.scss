@@ -2,35 +2,14 @@
   @apply bg-gray-800 text-gray-900 rounded-3xl;
   // height: auto;
   // min-height: 637px;
-  max-width: 1280px !important;
+  width: 1280px !important;
+  height: 800px
 }
 
 .sign-up-model {
   @apply flex bg-gray-800  flex-col items-center px-0  sm:px-20;
   max-width: 1280px !important;
 
-  .btn-close {
-   @apply absolute top-0 right-0 bg-white rounded-full opacity-50 m-3.5 hover:opacity-70;
-   padding: 1px;
-   svg {
-     color: #132356;
-   }
- }
-
- .logo {
-   @apply object-scale-down mt-6 sm:mt-6 md:mt-2;
-   // width: 410px;
-   height: 90px;
- }
-
- h1 {
-   @apply capitalize my-5 text-3xl text-white;
-   font-weight: 400;
-   span {
-     padding-bottom: 4px;
-     border-bottom: 2px solid #75F16D;
-   }
- }
 
  form {
    @apply flex flex-col w-full;
@@ -67,7 +46,7 @@ input {
 }
 
 .custom-scrollbar-css {
-  height: 500px;
+  height: 900px;
 }
 /* Custom Scrollbar using CSS */
 .custom-scrollbar-css {
@@ -93,4 +72,15 @@ input {
   border-radius: 8px;
 }
 
+.card-size {
+  height: 358px;
+  width: 281px;
+}
 
+.mat-dialog{
+  width: 1280px !important;
+}
+.mat-dialog-content {
+  padding: 0px;
+
+}

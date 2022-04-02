@@ -1,0 +1,12 @@
+<div class="relative m-3" (click)="openNav()" >
+  <img class="text-center text-white " style="width: 50px !important"  src="../../../assets/burger.svg" alt="">
+</div>
+
+
+<div id="myNav" class="overlay" #menu>
+  <a class="closebtn" (click)="closeNav()">&times;</a>
+  <div class="overlay-content">
+    <a routerLink="/home" routerLinkActive="active"><span>Home</span></a>
+    <a routerLink="/users" routerLinkActive="active"><span>Talented People</span></a>
+  </div>
+</div>

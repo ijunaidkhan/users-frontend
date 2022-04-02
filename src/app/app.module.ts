@@ -16,6 +16,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 import { MatSliderModule } from '@angular/material/slider';
 import { EditUserComponent } from './ui-components/edit-user/edit-user.component';
+<<<<<<< HEAD
 import { PhoneNumberComponent } from './phone-number/phone-number.component';
 import { CodeComponent } from './code/code.component';
 import { AngularFireModule } from '@angular/fire/compat';
@@ -24,6 +25,18 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { environment } from 'src/environments/environment';
 import { NgOtpInputModule } from  'ng-otp-input';
+=======
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrModule } from 'ngx-toastr';
+import { SharedModule } from './modules/shared/shared/shared.module';
+import { ScrollTopComponent } from './reuseable/scroll-top/scroll-top.component';
+import { CardComponent } from './ui-components/card/card.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { UserDetailsComponent } from './user-details/user-details.component';
+import { UserDetailsPageComponent } from './user-details-page/user-details-page.component';
+
+
+>>>>>>> ad3bbe4c53c653e2760451e12b3560837a42c6c8
 
 @NgModule({
   declarations: [
@@ -33,12 +46,20 @@ import { NgOtpInputModule } from  'ng-otp-input';
     FooterComponent,
     CreateUserComponent,
     EditUserComponent,
+<<<<<<< HEAD
     PhoneNumberComponent,
     CodeComponent
+=======
+    ScrollTopComponent,
+    CardComponent,
+    UserDetailsComponent,
+    UserDetailsPageComponent,
+>>>>>>> ad3bbe4c53c653e2760451e12b3560837a42c6c8
   ],
   imports: [
     NgOtpInputModule,
     BrowserModule,
+    SharedModule,
     AppRoutingModule,
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebase),
@@ -50,7 +71,10 @@ import { NgOtpInputModule } from  'ng-otp-input';
     MatDialogModule,
     MatIconModule,
     MatMenuModule,
-    MatSliderModule
+    MatSliderModule,
+    NgbModule,
+    NgxSpinnerModule,
+    ToastrModule.forRoot({ positionClass: 'toast-top-right' }),
   ],
   providers: [
     {

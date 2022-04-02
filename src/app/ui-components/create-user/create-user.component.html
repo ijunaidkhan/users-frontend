@@ -1,177 +1,259 @@
-<!-- <div class="bg-gray-800 sign-up-model">
+
+
+<h2  mat-dialog-title class="text-white">Create User</h2>
+<mat-dialog-content class="custom-scrollbar-css">
   <div class="flex justify-end">
-    <button class="btn-close"  (click)="close()">
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+    <button style="position: absolute;
+    top: 15px;
+    right: 11px;
+    background: gray;
+    border-radius: 20px;"  (click)="close()">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="#fff">
         <path fill-rule="evenodd"
           d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
           clip-rule="evenodd" />
       </svg>
     </button>
   </div>
-  <h1 class=""><span>Creat</span>e User</h1>
-  <form [formGroup]="createUser" class="sign-up-form ">
-
-    <label for="name" class="font-normal">Full Name</label>
-    <input appTrim type="text" formControlName="name">
-    <p class="error-msg error" *ngIf="createUser.controls.name.touched && createUser.controls.name.errors?.required">please enter full name</p>
-    <p class="error-msg error" *ngIf="createUser.controls.name.touched && createUser.controls.name.errors?.minlength">full name length should be greater than or equal to {{createUser.controls.name.errors?.minlength.requiredLength}} </p>
-
-
-      <label for="email" class="font-normal">Email</label>
-      <input type="email" formControlName="email">
-      <p class="error-msg error" *ngIf="createUser.controls.email.touched && createUser.controls.email.errors?.required">please enter email address</p>
-      <p class="error-msg error" *ngIf="createUser.controls.email.touched && createUser.controls.email.errors?.email">please enter valid email address</p>
-
-      <label for="education" class="font-normal">Education</label>
-      <select formControlName="education"
-            class="block text-lg font-light text-gray-400 rounded-lg bg-primary-gray-100 focus:outline-none w-44 form-select" style="height: 3rem !important;">
-            <option [ngValue]="null" disabled>Experience in years</option>
-            <option *ngFor="let edu of education" [ngValue]="edu">
-              {{edu}}
-            </option>
-          </select>
-      <p class="error-msg error" *ngIf="createUser.controls.education.touched && createUser.controls.education.errors?.required">please enter education details</p>
-
-      <label for="education" class="font-normal">Experience</label>
-          <mat-slider formControlName="experience" class="text-white" min="1" max="5" step="1" thumbLabel tickInterval="1" ></mat-slider>
-          <p class="error-msg error" *ngIf="createUser.controls.experience.touched && createUser.controls.experience.errors?.required">please enter experience details</p>
-
-
-      <label for="phone" class="font-normal">Phone No</label>
-      <input type="text" formControlName="phone">
-      <p class="error-msg error" *ngIf="createUser.controls.phone.touched && createUser.controls.phone.errors?.required">please enter phone no</p>
-
-
-      <label for="techstack" class="font-normal">Tech Stack</label>
-      <select formControlName="tech"
-      class="block px-1 text-lg font-light text-gray-400 rounded-lg bg-primary-gray-100 focus:outline-none w-44 form-select" style="height: 3rem !important;">
-      <option [ngValue]="null" disabled>Experience in years</option>
-      <option *ngFor="let tech of techStack" [ngValue]="tech">
-        {{tech}}
-      </option>
-    </select>
-      <p class="error-msg error" *ngIf="createUser.controls.tech.touched && createUser.controls.tech.errors?.required">please enter your tech</p>
-
-
-      <label class="floating-label" for="bio">Bio</label>
-      <textarea appTrim type="text" formControlName="bio" maxlength="600"></textarea>
-      <span class="icon description-hide-icon"></span>
-      <p class="error-msg error" *ngIf="createUser.controls.bio.touched && createUser.controls.bio.errors?.required">please enter description</p>
-      <p class="error-msg error" *ngIf="createUser.controls.bio.touched && createUser.controls.bio.errors?.minlength">description should be greater than or equal to {{createUser.controls.bio.errors?.minlength.requiredLength}} character </p>
-    <br>
-
-
-
-    <button [disabled]="!createUser.valid" class="primary-btn signup" (click)="createuser()" >
-      Create User
-    </button>
-
-  </form>
-</div> -->
-<!-- <div class="bg-gray-800 sign-up-model">
-  <div class="flex justify-end">
-    <button class="btn-close"  (click)="close()">
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
-        <path fill-rule="evenodd"
-          d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-          clip-rule="evenodd" />
-      </svg>
-    </button>
-  </div>
-  <h1 class=""><span>Creat</span>e User</h1>
-  <form [formGroup]="createUser" class="sign-up-form ">
-
-    <label for="name" class="font-normal">Full Name</label>
-    <input appTrim type="text" formControlName="name">
-    <p class="error-msg error" *ngIf="createUser.controls.name.touched && createUser.controls.name.errors?.required">please enter full name</p>
-    <p class="error-msg error" *ngIf="createUser.controls.name.touched && createUser.controls.name.errors?.minlength">full name length should be greater than or equal to {{createUser.controls.name.errors?.minlength.requiredLength}} </p>
-
-
-      <label for="email" class="font-normal">Email</label>
-      <input type="email" formControlName="email">
-      <p class="error-msg error" *ngIf="createUser.controls.email.touched && createUser.controls.email.errors?.required">please enter email address</p>
-      <p class="error-msg error" *ngIf="createUser.controls.email.touched && createUser.controls.email.errors?.email">please enter valid email address</p>
-
-      <label for="education" class="font-normal">Education</label>
-      <select formControlName="education"
-            class="block text-lg font-light text-gray-400 rounded-lg bg-primary-gray-100 focus:outline-none w-44 form-select" style="height: 3rem !important;">
-            <option [ngValue]="null" disabled>Experience in years</option>
-            <option *ngFor="let edu of education" [ngValue]="edu">
-              {{edu}}
-            </option>
-          </select>
-      <p class="error-msg error" *ngIf="createUser.controls.education.touched && createUser.controls.education.errors?.required">please enter education details</p>
-
-      <label for="education" class="font-normal">Experience</label>
-          <mat-slider formControlName="experience" class="text-white" min="1" max="5" step="1" thumbLabel tickInterval="1" ></mat-slider>
-          <p class="error-msg error" *ngIf="createUser.controls.experience.touched && createUser.controls.experience.errors?.required">please enter experience details</p>
-
-
-      <label for="phone" class="font-normal">Phone No</label>
-      <input type="text" formControlName="phone">
-      <p class="error-msg error" *ngIf="createUser.controls.phone.touched && createUser.controls.phone.errors?.required">please enter phone no</p>
-
-
-      <label for="techstack" class="font-normal">Tech Stack</label>
-      <select formControlName="tech"
-      class="block px-1 text-lg font-light text-gray-400 rounded-lg bg-primary-gray-100 focus:outline-none w-44 form-select" style="height: 3rem !important;">
-      <option [ngValue]="null" disabled>Experience in years</option>
-      <option *ngFor="let tech of techStack" [ngValue]="tech">
-        {{tech}}
-      </option>
-    </select>
-      <p class="error-msg error" *ngIf="createUser.controls.tech.touched && createUser.controls.tech.errors?.required">please enter your tech</p>
-
-
-      <label class="floating-label" for="bio">Bio</label>
-      <textarea appTrim type="text" formControlName="bio" maxlength="600"></textarea>
-      <span class="icon description-hide-icon"></span>
-      <p class="error-msg error" *ngIf="createUser.controls.bio.touched && createUser.controls.bio.errors?.required">please enter description</p>
-      <p class="error-msg error" *ngIf="createUser.controls.bio.touched && createUser.controls.bio.errors?.minlength">description should be greater than or equal to {{createUser.controls.bio.errors?.minlength.requiredLength}} character </p>
-    <br>
-
-
-
-    <button [disabled]="!createUser.valid" class="primary-btn signup" (click)="createuser()" >
-      Create User
-    </button>
-
-  </form>
-</div> -->
-
-<h2 mat-dialog-title>Create User</h2>
-<mat-dialog-content class="mat-typography">
 <!-- component -->
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-4 flex items-center justify-center min-h-screen">
-  <div class="lg:w-3/6 lg:pr-0 pr-0">
-      <h1 class="font-medium text-5xl text-white">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h1>
-      <p class="leading-relaxed mt-4 text-white">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-  </div>
-  <div class="lg:w-3/6 xl:w-2/5 md:w-full bg-gray-50 p-8 flex flex-col lg:ml-auto w-full mt-10 lg:mt-0 rounded-md">
-      <div class="relative mb-4">
-          <label for="full-name" class="leading-7 text-sm text-gray-600">Name</label>
-          <input type="text" id="name" name="name" class="w-full bg-white rounded-md border border-gray-300 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-200 text-sm outline-none text-gray-900 py-1 px-3 leading-8 transition-colors duration-150 ease-in-out">
+<section class="w-full py-0 text-gray-900 bg-center bg-no-repeat bg-cover"
+style="background:url('https://images.unsplash.com/photo-1623479322729-28b25c16b011?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=1280')">
+<div class="flex items-center justify-center px-4 mx-auto max-w-7xl sm:px-6 lg:px-4">
+    <div class="flex justify-center pr-0 lg:w-3/6 lg:pr-0">
+      <div
+      class="relative block p-4 m-4 overflow-hidden bg-gray-900 border border-gray-100 rounded-lg card-size"
+      href="">
+      <span class="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-purple-600"></span>
+
+      <div class="justify-between sm:flex">
+        <div>
+          <h5 *ngIf="this.createUser.controls.name.value" class="text-xl font-bold text-gray-100">
+            {{this.createUser.controls.name.value}}
+          </h5>
+          <h5 *ngIf="!this.createUser.controls.name.value" class="text-xl font-bold text-gray-100">
+           John Doe
+          </h5>
+
+          <p *ngIf="this.createUser.controls.gender.value"  class="mt-1 text-xs font-medium text-gray-400">{{this.createUser.controls.gender.value}}</p>
+          <p *ngIf="!this.createUser.controls.gender.value"  class="mt-1 text-xs font-medium text-gray-400">Gender</p>
+        </div>
+
+        <div class="flex items-center flex-shrink-0 hidden ml-3 sm:block">
+          <img *ngIf="imageSrc.length == 0 || imageSrc.length == null"
+            class="object-cover w-16 h-16 rounded-lg shadow-sm"
+            src="https://www.hyperui.dev/photos/man-5.jpeg"
+            alt="" />
+           <ng-container *ngFor="let img of imageSrc">
+          <img *ngIf="imageSrc"
+            class="object-cover w-16 h-16 rounded-lg shadow-sm"
+            [src]="img"
+            alt=""
+          />
+        </ng-container>
       </div>
-      <div class="relative mb-4">
-          <label for="email" class="leading-7 text-sm text-gray-600">Email</label>
-          <input type="email" id="email" name="email" class="w-full bg-white rounded-md border border-gray-300 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-200 text-sm outline-none text-gray-900 py-1 px-3 leading-8 transition-colors duration-150 ease-in-out">
       </div>
-      <div class="relative mb-4">
-          <label for="email" class="leading-7 text-sm text-gray-600">Phone</label>
-          <input type="email" id="phone" name="phone" class="w-full bg-white rounded-md border border-gray-300 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-200 text-sm outline-none text-gray-900 py-1 px-3 leading-8 transition-colors duration-150 ease-in-out">
+
+      <div class="mt-4 sm:pr-8">
+        <p *ngIf="this.createUser.controls.bio.value" class="text-sm text-gray-200">
+        {{this.createUser.controls.bio.value}}
+        </p>
+        <p *ngIf="!this.createUser.controls.bio.value" class="text-sm text-gray-200">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque varius dictum luctus.
+        </p>
       </div>
+
+      <dl class="flex mt-6">
+        <div class="flex flex-col-reverse">
+          <dd *ngIf="this.createUser.controls.education.value" class="text-xs text-gray-300">{{this.createUser.controls.education.value}}</dd>
+          <dd *ngIf="!this.createUser.controls.education.value" class="text-xs text-gray-300">ex. Masters</dd>
+          <dt class="text-sm font-medium text-gray-400">Education</dt>
+
+        </div>
+
+        <div class="flex flex-col-reverse ml-3 sm:ml-6">
+          <dd *ngIf="this.createUser.controls.techStack.value" class="text-xs text-gray-300">{{this.createUser.controls.techStack.value }}</dd>
+          <dd *ngIf="!this.createUser.controls.techStack.value" class="text-xs text-gray-300">ex. Angular</dd>
+          <dt class="text-sm font-medium text-gray-400">Tech Stack</dt>
+
+        </div>
+      </dl>
+      <dl class="flex mt-6">
+        <div class="flex flex-col-reverse">
+          <dd *ngIf="this.createUser.controls.phoneno.value" class="text-xs text-gray-300">{{this.createUser.controls.phoneno.value}}</dd>
+          <dd *ngIf="!this.createUser.controls.phoneno.value" class="text-xs text-gray-300">+92 3358976</dd>
+          <dt class="text-sm font-medium text-gray-400">Phone</dt>
+        </div>
+
+        <div class="flex flex-col-reverse ml-3 sm:ml-6">
+
+          <dd *ngIf="this.createUser.controls.email.value" class="text-xs text-gray-300">{{this.createUser.controls.email.value}}</dd>
+          <dd *ngIf="!this.createUser.controls.email.value" class="text-xs text-gray-300">johndoe@email.com</dd>
+          <dt class="text-sm font-medium text-gray-400">Email</dt>
+        </div>
+      </dl>
+
+
+        </div>
+    </div>
+
+
+    <div class="flex flex-col w-full p-8 mt-10 bg-gray-900 rounded-md lg:w-3/6 xl:w-2/5 md:w-full lg:ml-auto lg:mt-0">
+      <form [formGroup]="createUser" >
+        <div class="relative mb-4">
+          <label for="full-name" class="text-sm leading-7 text-gray-600">Name</label>
+          <input type="text" formControlName="name" class="w-full px-3 py-1 text-sm leading-8 text-gray-900 transition-colors duration-150 ease-in-out bg-white border border-gray-300 rounded-md outline-none focus:border-indigo-600 focus:ring-2 focus:ring-indigo-200">
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+            validation: 'required',
+            message: 'Name is required',
+            control: createUser.controls['name']
+          }">
+        </ng-container>
+        </div>
+        <div class="relative mb-4">
+          <label for="full-name" class="text-sm leading-7 text-gray-600">Profile Picture</label>
+          <div class="relative flex justify-between overflow-hidden border-2 border-gray-400 border-dashed rounded-lg">
+            <button
+              class="flex items-center justify-between w-full px-2 py-2 font-bold bg-primary-gray-100 hover:bg-indigo-dark">
+              <ng-container *ngIf="!file; else show">
+                  <div class="px-2 font-light text-gray-400">Select Image to Upload</div>
+              </ng-container>
+              <ng-template #show>
+                <div class="px-2 font-light text-white ">File selected!</div>
+              </ng-template>
+            <div>
+                <svg
+                  fill="#FFF"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  width="28"
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="m-2">
+                  <path d="M0 0h24v24H0z" fill="none" />
+                  <path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z" />
+                </svg>
+              </div>
+            </button>
+            <input
+              class="absolute block opacity-0 cursor-pointer pin-r pin-t "
+              type="file"
+              name=""  accept="image/png, image/gif, image/jpeg"
+              (change)="onSelectFile($event)"
+            />
+          </div>
+        </div>
+
       <div class="relative mb-4">
-          <label for="email" class="leading-7 text-sm text-gray-600">Message</label>
-          <textarea id="message" name="message" rows="4" class="w-full bg-white rounded-md border border-gray-300 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-200 text-sm outline-none text-gray-900 py-1 px-3 leading-8 transition-colors duration-150 ease-in-out"> </textarea>
+        <label for="email" class="text-sm leading-7 text-gray-600">Bio</label>
+        <textarea area id="message" formControlName="bio"  rows="4" class="w-full px-3 py-1 text-sm leading-8 text-gray-900 transition-colors duration-150 ease-in-out bg-white border border-gray-300 rounded-md outline-none focus:border-indigo-600 focus:ring-2 focus:ring-indigo-200"> </textarea>
+        <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+          validation: 'required',
+          message: 'Bio is required',
+          control: createUser.controls['bio']
+        }">
+      </ng-container>
       </div>
-      <button class="text-white bg-indigo-500 rounded-md border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 text-lg">Submit</button>
-  </div>
+
+      <div class="relative mb-4">
+        <div class="form-check form-check-inline">
+          <input formControlName="gender" class="float-left w-4 h-4 mt-1 mr-2 align-top transition duration-200 bg-white bg-center bg-no-repeat bg-contain border border-gray-300 rounded-full appearance-none cursor-pointer form-check-input checked:bg-blue-600 checked:border-blue-600 focus:outline-none" type="radio" name="inlineRadioOptions"  value="Male">
+          <label class="inline-block text-gray-600 form-check-label" for="inlineRadio10">Male</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input formControlName="gender" class="float-left w-4 h-4 mt-1 mr-2 align-top transition duration-200 bg-white bg-center bg-no-repeat bg-contain border border-gray-300 rounded-full appearance-none cursor-pointer form-check-input checked:bg-blue-600 checked:border-blue-600 focus:outline-none" type="radio" name="inlineRadioOptions" value="Female">
+          <label class="inline-block text-gray-600 form-check-label" for="inlineRadio20">Female</label>
+        </div>
+
+        <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+          validation: 'required',
+          message: 'Please select either value',
+          control: createUser.controls['gender']
+        }">
+      </ng-container>
+      </div>
+
+
+
+      <div class="flex justify-between inline">
+        <div class="relative mb-4">
+          <label for="education" class="text-sm leading-7 text-gray-600">Education</label>
+          <select formControlName="education"
+          class="block text-lg font-light text-gray-900 bg-gray-400 rounded-lg bg-primary-gray-100 focus:outline-none w-44 form-select" style="height: 3rem !important;">
+          <option [ngValue]="null" disabled>Experience in years</option>
+          <option *ngFor="let edu of education" [ngValue]="edu">
+            {{edu}}
+          </option>
+        </select>
+        <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+          validation: 'required',
+          message: 'Select an option',
+          control: createUser.controls['education']
+        }">
+      </ng-container>
+
+      </div>
+
+      <div class="relative mb-4">
+          <label for="tech" class="text-sm leading-7 text-gray-600">Tech Stack</label>
+          <select formControlName="techStack"
+          class="block px-1 text-lg font-light text-gray-900 bg-gray-400 rounded-lg bg-primary-gray-100 focus:outline-none w-44 form-select" style="height: 3rem !important;">
+          <option [ngValue]="null" disabled>Experience in years</option>
+          <option *ngFor="let tech of techStack" [ngValue]="tech">
+            {{tech}}
+          </option>
+        </select>
+        <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+          validation: 'required',
+          message: 'Select an option',
+          control: createUser.controls['techStack']
+        }">
+      </ng-container>
+
+      </div>
+      </div>
+
+
+      <div class="relative mb-4">
+        <label for="number" class="text-sm leading-7 text-gray-600">Phone</label>
+        <input type="text" formControlName="phoneno" class="w-full px-3 py-1 text-sm leading-8 text-gray-900 transition-colors duration-150 ease-in-out bg-white border border-gray-300 rounded-md outline-none focus:border-indigo-600 focus:ring-2 focus:ring-indigo-200">
+        <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+          validation: 'required',
+          message: 'Phone no is required',
+          control: createUser.controls['phoneno']
+        }">
+      </ng-container>
+      </div>
+
+      <div class="relative mb-4">
+          <label for="email" class="text-sm leading-7 text-gray-600">Email</label>
+          <input type="email" formControlName="email" class="w-full px-3 py-1 text-sm leading-8 text-gray-900 transition-colors duration-150 ease-in-out bg-white border border-gray-300 rounded-md outline-none focus:border-indigo-600 focus:ring-2 focus:ring-indigo-200">
+          <ng-container [ngTemplateOutlet]="formError" [ngTemplateOutletContext]="{
+            validation: 'required',
+            message: 'Email is required',
+            control: createUser.controls['email']
+          }">
+        </ng-container>
+      </div>
+
+
+      <button  type="submit" (click)="createUserProfile(createUser.value);" [disabled]="createUser.invalid || createUser.errors || !file"  class="px-8 py-2 text-lg text-white border-0 rounded-md bg-lime-500 disabled:opacity-75 focus:outline-none">
+        Submit
+      </button>
+      <button  type="reset"   class="px-8 py-2 ml-2 text-lg text-white bg-gray-400 border-0 rounded-md focus:outline-none">
+        Reset</button>
+      </form>
+    </div>
 </div>
+</section>
 
 </mat-dialog-content>
-<mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Install</button>
-</mat-dialog-actions>
+
+
+<ng-template #formError let-control="control" let-message="message" let-validation="validation">
+  <ng-container *ngIf="control.hasError(validation) && (control.dirty || control.touched)">
+    <div class="text-xs fv-plugins-message-container sm:text-sm">
+      <span role="alert" class="text-red-600">
+        {{ message }}
+      </span>
+    </div>
+  </ng-container>
+</ng-template>
