@@ -22,16 +22,13 @@
     "@angular/platform-browser": "~12.2.0",
     "@angular/platform-browser-dynamic": "~12.2.0",
     "@angular/router": "~12.2.0",
-<<<<<<< HEAD
     "firebase": "^9.6.10",
     "ng-otp-input": "^1.8.5",
-=======
     "@nestjs/platform-express": "^8.4.0",
     "@ng-bootstrap/ng-bootstrap": "^10.0.0",
     "bootstrap": "^4.5.0",
     "ngx-spinner": "^13.1.1",
     "ngx-toastr": "^14.2.2",
->>>>>>> ad3bbe4c53c653e2760451e12b3560837a42c6c8
     "rxjs": "~6.6.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
