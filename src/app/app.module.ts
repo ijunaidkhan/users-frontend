@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -16,6 +16,15 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 import { MatSliderModule } from '@angular/material/slider';
 import { EditUserComponent } from './ui-components/edit-user/edit-user.component';
+import { PhoneNumberComponent } from './phone-number/phone-number.component';
+import { CodeComponent } from './code/code.component';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { environment } from 'src/environments/environment';
+import { NgOtpInputModule } from  'ng-otp-input';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,13 +32,18 @@ import { EditUserComponent } from './ui-components/edit-user/edit-user.component
     HeaderComponent,
     FooterComponent,
     CreateUserComponent,
-    EditUserComponent
+    EditUserComponent,
+    PhoneNumberComponent,
+    CodeComponent
   ],
   imports: [
-
+    NgOtpInputModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
+    AngularFireStorageModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
