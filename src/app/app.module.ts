@@ -32,6 +32,8 @@ import { CardComponent } from './ui-components/card/card.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { UserDetailsPageComponent } from './user-details-page/user-details-page.component';
+import { Comp1Component } from './comp1/comp1.component';
+import { Comp2Component } from './comp2/comp2.component';
 
 
 
@@ -49,6 +51,8 @@ import { UserDetailsPageComponent } from './user-details-page/user-details-page.
     CardComponent,
     UserDetailsComponent,
     UserDetailsPageComponent,
+    Comp1Component,
+    Comp2Component,
   ],
   imports: [
     NgOtpInputModule,
