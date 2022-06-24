@@ -15,7 +15,7 @@ const routes: Routes = [
   {
     path: 'home', component: UsersComponent
   },
-  { path: '', redirectTo: '/phone', pathMatch: 'full'
+  { path: '', redirectTo: '/users', pathMatch: 'full'
 },
 
   {

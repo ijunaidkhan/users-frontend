@@ -1,0 +1,13 @@
+.custom {
+  margin-top: 6%;
+  margin-left: 20%;
+  margin-right: 20%;
+}
+
+
+//close button fade animation
+.fadeOut {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 2s, opacity 2s linear;
+}
